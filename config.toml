@@ -11,8 +11,8 @@ source = "src"
 quartus_version = "20.1"
 
 [project.meta]
-name = "Irrigation System"
-repository = "https://github.com/RickBarretto/1st-pbl-digital-circuits/"
+name = "Irrigation System v2"
+repository = "https://github.com/RickBarretto/"
 authors = [
     "Cláudio Daniel",
     "Paulo Gabriel",
