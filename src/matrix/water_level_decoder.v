@@ -40,8 +40,8 @@ module water_level_decoder (
     and (col_0[5], data[1], data[0]);
 
     // row[4,3] = b1
-    or (col_0[4], data[1], on);
-    or (col_0[3], data[1], on);
+    and (col_0[4], data[1], on);
+    and (col_0[3], data[1], on);
     
     // row[2,1] = b0 + b1
     or (col_0[2], data[0], data[1]);
