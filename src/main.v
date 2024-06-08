@@ -9,11 +9,21 @@ module main(
 	
 	input selector,
 
-	output water_supply_valvule,
+
+	// LED RGB
+
 	output alarm,
+
+
+	// Array of LEDs Display
+
+	output water_supply_valvule,
 	output splinker_bomb,
 	output dripper_valvule,
 	
+
+	// 7-Segment Display
+
 	output segment_a, output segment_b, output segment_c,
     output segment_d, output segment_e, output segment_f,
     output segment_g,
