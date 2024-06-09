@@ -13,7 +13,7 @@ module matrix_display (
 	output m_row5,
 	output m_row6,
 	
-	input [2:0]ring_counter,
+	input [2:0] ring_counter,
 	 
 	input [6:0] col_2, //! Columns: 0 & 4
    	input [6:0] col_1, //! Columns: 1 & 3
