@@ -5,17 +5,17 @@ module clock_divisor(
     input reset
 );
 
-  flipflop_t (wire_1, clock, reset, 1);
-  flipflop_t (wire_2, wire_1, reset, 1);
-  flipflop_t (wire_3, wire_2, reset, 1);
-  flipflop_t (wire_4, wire_3, reset, 1);
-  flipflop_t (wire_5, wire_4, reset, 1);
+  flipflop_t (wire_1,   clock,  reset, 1);
+  flipflop_t (wire_2,  wire_1,  reset, 1);
+  flipflop_t (wire_3,  wire_2,  reset, 1);
+  flipflop_t (wire_4,  wire_3,  reset, 1);
+  flipflop_t (wire_5,  wire_4,  reset, 1);
 
-  flipflop_t (wire_6, wire_5, reset, 1);
-  flipflop_t (wire_7, wire_6, reset, 1);
-  flipflop_t (wire_8, wire_7, reset, 1);
-  flipflop_t (wire_9, wire_8, reset, 1);
-  flipflop_t (wire_10, wire_9, reset, 1);
+  flipflop_t (wire_6,  wire_5,  reset, 1);
+  flipflop_t (wire_7,  wire_6,  reset, 1);
+  flipflop_t (wire_8,  wire_7,  reset, 1);
+  flipflop_t (wire_9,  wire_8,  reset, 1);
+  flipflop_t (wire_10, wire_9,  reset, 1);
 
   flipflop_t (wire_11, wire_10, reset, 1);
   flipflop_t (wire_12, wire_11, reset, 1);
