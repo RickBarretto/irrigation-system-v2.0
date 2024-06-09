@@ -20,8 +20,7 @@ module main(
 
 	output water_supply_valvule,
 
-	output counter_2,
-	output counter_1,
+	output counter_2, output counter_1,
 	output counter_0,
 
 	output splinker_bomb,
@@ -34,26 +33,20 @@ module main(
     output segment_d, output segment_e, output segment_f,
     output segment_g,
 	 
-	output display_0, 
-	output display_1, 
-	output display_2, 
+	output display_0, output display_1, 
+	output display_2, output display_3, 
 	output displays_point,
 
 
 	// Matrix of LEDs Display
 
-	output matrix_col0,
-	output matrix_col1,
-	output matrix_col2,
-	output matrix_col3,
+	output matrix_col0, output matrix_col1,
+	output matrix_col2, output matrix_col3,
 	output matrix_col4,
 
-	output matrix_row0,
-	output matrix_row1,
-	output matrix_row2,
-	output matrix_row3,
-	output matrix_row4,
-	output matrix_row5,
+	output matrix_row0, output matrix_row1,
+	output matrix_row2, output matrix_row3,
+	output matrix_row4, output matrix_row5,
 	output matrix_row6
 
 );
