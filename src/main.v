@@ -50,7 +50,7 @@ module main(
 );
 
 	//-------------------------------------------
-	// Input related
+	// Input & Error Checking
 	//-------------------------------------------
 
 	water_sensors_checker check_error(
@@ -63,9 +63,10 @@ module main(
 
 
 	//-------------------------------------------
-	// Water supply related
+	// Water Supply
 	//-------------------------------------------
 
+	// Output
 	water_supply_controller open_water_supply(
 		water_supply_valvule,
 
@@ -75,11 +76,12 @@ module main(
 
 
 	//-------------------------------------------
-	// Irrigation related
+	// Irrigation Controller and Selector
 	//-------------------------------------------
 
 	irrigation_controller check_prerequisites(
 		irrigation_on,
+
 		conflicting_values,
 		earth_humidity,
 		low_water_level
@@ -93,27 +95,42 @@ module main(
 		mid_water_level
 	);
 
-	and open_splinker(splinker_bomb, splinker_mode_on, irrigation_on);
-	and open_dripper(dripper_valvule, dripper_mode_on, irrigation_on);
+	// Output
+	and open_splinker(
+		splinker_bomb, 
+		
+		splinker_mode_on, 
+		irrigation_on
+	);
+
+	// Output
+	and open_dripper(
+		dripper_valvule, 
+		
+		dripper_mode_on, 
+		irrigation_on
+	);
 
 
 	//-------------------------------------------
-	// Alarm related
+	// Alarm Output
 	//-------------------------------------------
 
-	alarm_controller enable_alarm(alarm, mid_water_level, conflicting_values);
-	
+	// Output
+	alarm_controller enable_alarm(
+		alarm, 
+		
+		mid_water_level, 
+		conflicting_values
+	);
+
 
 	//-------------------------------------------
-	// Matrix Display related
+	// Encoders
 	//-------------------------------------------
 
-	wire [2:0] matrix_column;
-	wire [6:0] water_column_1;
-	wire [6:0] water_column_2;
-	wire [6:0] irrigation_column_2;
-	wire [6:0] irrigation_column_1;
-	wire [6:0] irrigation_column_0;
+	wire [1:0] encoded_water;
+	wire [1:0] encoded_irrigation;
 
 	water_encoder encode_water(
 		encoded_water,
@@ -125,24 +142,48 @@ module main(
 	
 	irrigation_encoder encode_irrigation(
 		encoded_irrigation,
+
 		splinker_mode_on
 	);
 	
-	clock_div (reduced_clock, clock, 1);
-	column_selector (matrix_column, reduced_clock, 0);
+
+	//-------------------------------------------
+	// Matrix Display related
+	//-------------------------------------------
+
+	wire [2:0] ring_counting;	
+
+	// Clock reduction
+
+	clock_divisor divide_clock(reduced_clock, clock, 1);
+
+
+	// Ring Counter
+
+	column_selector select_column(ring_counting, reduced_clock);
 	
-	pipe (led2, matrix_column[2]);
-	pipe (led1, matrix_column[1]);
-	pipe (led0, matrix_column[0]);
+	// Output
+	pipe redirect_couting_2(led2, ring_counting[2]);
+	pipe redirect_couting_1(led1, ring_counting[1]);
+	pipe redirect_couting_0(led0, ring_counting[0]);
 	
-	water_level_decoder (
-	   water_column_1,
-	   water_column_0,
+	// Matrix Columns decoders
+
+	wire [6:0] water_column_1;
+	wire [6:0] water_column_2;
+
+	water_level_decoder decode_water_level_to_matrix(
+	   	water_column_1,
+	   	water_column_0,
 		
 		encoded_water
 	);
+
+	wire [6:0] irrigation_column_2;
+	wire [6:0] irrigation_column_1;
+	wire [6:0] irrigation_column_0;
 	
-	irrigation_mode_decoder(
+	irrigation_mode_decoder decode_irrigation_mode_to_matrix(
 		irrigation_column_2,
 		irrigation_column_1,
 		irrigation_column_0,
