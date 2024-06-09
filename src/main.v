@@ -227,7 +227,7 @@ module main(
 
 		synced_column_2,
 		synced_column_1,
-		synced_column_0,
+		synced_column_0
 	);
 
 endmodule
