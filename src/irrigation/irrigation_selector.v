@@ -15,6 +15,7 @@ module irrigation_selector(
     input mid_water_level
 );
 
+
         not (air_dryness, air_humidity);
         not (heat_climate, low_temperature);
 
