@@ -102,8 +102,6 @@ module main(
 		mid_water_level
 	);
 
-	not not1(dripper_mode_on, splinker_mode_on);
-
 	and open_splinker(splinker_bomb, splinker_mode_on, irrigation_on);
 	and open_dripper(dripper_valvule, dripper_mode_on, irrigation_on);
 
@@ -116,49 +114,81 @@ module main(
 	
 
 	//-------------------------------------------
-	// Display related
+	// Matrix Display related
 	//-------------------------------------------
 
-
-
 	water_encoder encode_water(
-		encoded_water_Bit0,
-		encoded_water_Bit1,
+		encoded_water,
 
 		high_water_level,
 		mid_water_level,
 		low_water_level
 	);
-
-
-	// mux
 	
-	display_selector (
-		mux_out_Bit0, 
-		mux_out_Bit1, 
+	irrigation_encoder encode_irrigation(
+		encoded_irrigation,
+		splinker_mode_on
+	);
+
+	wire [2:0]matrix_column;
+	
+	clock_div (reduced_clock, clock, 1);
+	column_selector (matrix_column, reduced_clock, 0);
+	
+	and (led2, matrix_column[2], matrix_column[2]);
+	and (led1, matrix_column[1], matrix_column[1]);
+	and (led0, matrix_column[0], matrix_column[0]);
+	
+	water_level_decoder (
+	   water_column_1,
+	   water_column_0,
 		
-		selector, 
-		
-		encoded_water_Bit0,
-		encoded_water_Bit1, 
-		splinker_bomb, 
-		dripper_valvule
+		encoded_water
 	);
 	
-	display_decoder(
-		segment_a, segment_b, segment_c, 
-		segment_d, segment_e, segment_f, 
-		segment_g, 
+	irrigation_mode_decoder(
+		irrigation_column_2,
+		irrigation_column_1,
+		irrigation_column_0,
 		
-		selector,
-		mux_out_Bit0, 
-		mux_out_Bit1
+		encoded_irrigation
 	);
+	
+	select_matrix_display (
+		column_2,
+		column_1,
+		column_0,
 		
-	disable_display(display_0, dripper_valvule);
-	disable_display(display_1, dripper_valvule);
-	disable_display(display_2, dripper_valvule);
-	disable_display(displays_point, dripper_valvule);
+		reduced_clock,
+		
+		water_column_1,
+		water_column_0,
+		water_column_0,
+		
+		irrigation_column_2,
+		irrigation_column_1,
+		irrigation_column_0
+	);
+	
+	matrix_display (
+		matrix_col0,
+	   	matrix_col1,
+	   	matrix_col2,
+	   	matrix_col3,
+	   	matrix_col4,
+	   
+	   	matrix_row0,
+	   	matrix_row1,
+	   	matrix_row2,
+	   	matrix_row3,
+	   	matrix_row4,
+	   	matrix_row5,
+	   	matrix_row6,
+		
+		matrix_column,
+		column_2,
+		column_1,
+		column_0
+	);
 
-		
 endmodule
