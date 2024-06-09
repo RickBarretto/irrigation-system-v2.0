@@ -131,9 +131,9 @@ module main(
 	clock_div (reduced_clock, clock, 1);
 	column_selector (matrix_column, reduced_clock, 0);
 	
-	and (led2, matrix_column[2], matrix_column[2]);
-	and (led1, matrix_column[1], matrix_column[1]);
-	and (led0, matrix_column[0], matrix_column[0]);
+	pipe (led2, matrix_column[2]);
+	pipe (led1, matrix_column[1]);
+	pipe (led0, matrix_column[0]);
 	
 	water_level_decoder (
 	   water_column_1,
