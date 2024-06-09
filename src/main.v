@@ -86,6 +86,8 @@ module main(
 		mid_water_level
 	);
 
+	not (dripper_mode_on, splinker_mode_on);
+
 	// Output
 	and open_splinker(
 		splinker_bomb,
