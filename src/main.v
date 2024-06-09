@@ -8,6 +8,7 @@ module main(
 	input low_temperature,
 	
 	input selector,
+	input clock,
 
 
 	// LED RGB
@@ -40,7 +41,6 @@ module main(
 
 
 	// Matrix of LEDs Display
-
 
 	output matrix_col0,
 	output matrix_col1,
