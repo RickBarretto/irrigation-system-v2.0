@@ -1,4 +1,4 @@
-module select_matrix_display (
+module select_matrix_display_mode (
 	output [6:0]col_2,
 	output [6:0]col_1,
 	output [6:0]col_0,
