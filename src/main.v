@@ -131,12 +131,6 @@ module main(
 		low_water_level
 	);
 
-	irrigation_encoder encode_irrigation(
-		encoded_irrigation,
-
-		splinker_mode_on
-	);
-
 
 	//-------------------------------------------
 	// Matrix Display related
@@ -179,7 +173,7 @@ module main(
 		irrigation_column_1,
 		irrigation_column_0,
 
-		encoded_irrigation
+		splinker_mode_on
 	);
 
 	// Matrix Sync

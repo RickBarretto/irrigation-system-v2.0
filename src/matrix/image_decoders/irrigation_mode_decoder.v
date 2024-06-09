@@ -1,19 +1,3 @@
-
-// Helper modules
-
-module is_splinker(output out, input [1:0]data);
-    not (not_dripper, data[1]);
-    and (out, not_dripper, data[0]);
-endmodule
-
-
-module is_dripper(output out, input [1:0]data);
-    not (not_splinker, data[0]);
-    and (out, not_splinker, data[1]);
-endmodule
-
-
-
 //! LED matrix's decoder
 //!
 //! This decoder takes an encoded data and generates the needed images
@@ -25,6 +9,9 @@ module irrigation_mode_decoder (
     output [6:0] col_2, //! Columns: 0 & 4
     output [6:0] col_1, //! Columns: 1 & 3
     output [6:0] col_0, //! Columns: 2
+
+    input splinker_mode_on
+);
 
     //! Images
     //! ------
@@ -41,5 +28,7 @@ module irrigation_mode_decoder (
 
     // Helper function
     always_on (on, data[1]);
+
+
 
 endmodule
