@@ -10,25 +10,18 @@ module main(
 	input selector,
 	input clock,
 
-
 	// LED RGB
-
 	output alarm,
 
-
 	// Array of LEDs Display
-
 	output water_supply_valvule,
-
-	output counter_2, output counter_1,
+	output counter_2, 
+	output counter_1,
 	output counter_0,
-
 	output splinker_bomb,
 	output dripper_valvule,
-	
 
 	// 7-Segment Display
-
 	output segment_a, output segment_b, output segment_c,
     output segment_d, output segment_e, output segment_f,
     output segment_g,
@@ -37,9 +30,7 @@ module main(
 	output display_2, output display_3, 
 	output displays_point,
 
-
 	// Matrix of LEDs Display
-
 	output matrix_col0, output matrix_col1, output matrix_col2, 
 	output matrix_col3, output matrix_col4,
 
