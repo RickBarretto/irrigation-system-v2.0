@@ -18,5 +18,58 @@ module water_level_decoder (
     input [1:0] data
 );
 
+    //! Images
+    //! ------
+    //!
+    //!  Critical      Low        Mid        High
+    //!  ---------  ---------  ---------  ---------
+    //!  1 0 0 0 1  1 0 0 0 1  1 0 0 0 1  1 0 0 0 1
+    //!  - - - - -  - - - - -  - - - - -  - - - - -
+    //!  *       *  *       *  *       *  * * * * *
+    //!  *       *  *       *  *       *  * * * * *
+    //!  *       *  *       *  * * * * *  * * * * *
+    //!  *       *  *       *  * * * * *  * * * * *
+    //!  *       *  * * * * *  * * * * *  * * * * *
+    //!  *       *  * * * * *  * * * * *  * * * * *
+    //!  * * * * *  * * * * *  * * * * *  * * * * *
+
+    // Helper wires
+
+    wire not_1, not_0;
+    wire on, off;
+
+    always_on(on, data[1]);
+    not (off, on);
+
+    not (not_1, data[1])
+    not (not_0, data[0])
+
+    // Column 1 is always off
+
+    pipe (col_1[6], off);
+    pipe (col_1[5], off);
+    pipe (col_1[4], off);
+    pipe (col_1[3], off);
+    pipe (col_1[2], off);
+    pipe (col_1[1], off);
+    pipe (col_1[0], off);
+
+    // Bottom is always off
+
+    pipe (col_0[0], off)
+
+    // Variable Dots
+
+    // Y = B1' + B0'
+    or (col_1[6], not_1, not_0);
+    pipe (col_1[5], col_1[6]);
+
+    // Y = B1
+    pipe(col[4], data[1]);
+    pipe(col[3], data[1]);
+
+    // Y = B1' * B0'
+    and (col_1[2], not_1, not_0);
+    pipe (col_1[1], col_1[1]);
 
 endmodule
