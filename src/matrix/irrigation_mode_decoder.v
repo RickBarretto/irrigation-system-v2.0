@@ -49,20 +49,22 @@ module irrigation_mode_decoder (
     not (b0_not, data[0]);
 
     // =================================
-    // 01
+    // When data is: 01
 
-    // col_2[6, 4, 0] = b1'b0
+    // col_2[6] = b1'b0
+    // col_2[4] = b1'b0
+    // col_2[4] = b1'b0
     is_splinker (col_2[6], data);
     is_splinker (col_2[4], data);
     is_splinker (col_2[0], data);
 
-    // col_1[4, 3, 2]
+    // col_1[4:2]
     is_splinker (col_1[4], data);
     is_splinker (col_1[3], data);
     is_splinker (col_1[2], data);
 
     // =================================
-    // 00
+    // When data is: 00
 
     // col_2[5] = 0
     not (col_2[5], on);
@@ -72,12 +74,12 @@ module irrigation_mode_decoder (
     
 
     // =================================
-    // 11
+    // When data is: 11
 
     // col_2[3] = 1
     always_on (col_2[3], data[1]);
 
-    // col_1[1, 0] = 1
+    // col_1[1:0] = 1
     always_on (col_1[1], data[1]);
     always_on (col_1[0], data[1]);
 
@@ -92,9 +94,9 @@ module irrigation_mode_decoder (
 
 
     // =================================
-    // 10
+    // When the data is: 10
 
-    // col_2[2, 1] = b1b0' 
+    // col_2[2:1] = b1b0' 
     is_dripper (col_2[2], data);
     is_dripper (col_2[1], data);
 
