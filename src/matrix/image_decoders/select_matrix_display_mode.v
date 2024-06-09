@@ -29,6 +29,16 @@ module select_matrix_display_mode (
 	
    	not (clock_down, clock);
 
+	// TODO: test LE usage
+	//
+	// multiplexer_2x1(column_2, water_col_2[6], irrigation_col_2[6], clock);
+	// multiplexer_2x1(column_2, water_col_2[5], irrigation_col_2[5], clock);
+	// multiplexer_2x1(column_2, water_col_2[4], irrigation_col_2[4], clock);
+	// multiplexer_2x1(column_2, water_col_2[3], irrigation_col_2[3], clock);
+	// multiplexer_2x1(column_2, water_col_2[2], irrigation_col_2[2], clock);
+	// multiplexer_2x1(column_2, water_col_2[1], irrigation_col_2[1], clock);
+	// multiplexer_2x1(column_2, water_col_2[0], irrigation_col_2[0], clock);
+
 	// Water
 
 	and (bus_waters_image_2[6], clock, water_col_2[6]);
