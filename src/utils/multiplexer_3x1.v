@@ -24,9 +24,9 @@ module multiplexer_3x1(
 
     wire bus_2, bus_1, bus_0;
 
-    and (bus_2, bit_2, ring_counter[2])
-    and (bus_1, bit_1, ring_counter[1])
-    and (bus_0, bit_0, ring_counter[0])
+    and (bus_2, bit_2, ring_counter[2]);
+    and (bus_1, bit_1, ring_counter[1]);
+    and (bus_0, bit_0, ring_counter[0]);
 
     or  (out, bus_2, bus_1, bus_0);
 
