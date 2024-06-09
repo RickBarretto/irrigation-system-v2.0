@@ -117,6 +117,13 @@ module main(
 	// Matrix Display related
 	//-------------------------------------------
 
+	wire [2:0] matrix_column;
+	wire [6:0] water_column_1;
+	wire [6:0] water_column_2;
+	wire [6:0] irrigation_column_2;
+	wire [6:0] irrigation_column_1;
+	wire [6:0] irrigation_column_0;
+
 	water_encoder encode_water(
 		encoded_water,
 
@@ -129,8 +136,6 @@ module main(
 		encoded_irrigation,
 		splinker_mode_on
 	);
-
-	wire [2:0]matrix_column;
 	
 	clock_div (reduced_clock, clock, 1);
 	column_selector (matrix_column, reduced_clock, 0);
