@@ -26,16 +26,18 @@ module irrigation_mode_decoder (
     output [6:0] col_1, //! Columns: 1 & 3
     output [6:0] col_0, //! Columns: 2
 
-    //! Quick explanation of the entries
-    //! --------------------------------
+    //! Images
+    //! ------
     //!
-    //! Data Meaning
-    //! ---- ---------------
-    //! 01   Splinker output
-    //! 10   Dripper output
-
-    input [1:0] data
-);
+    //!  Splinker    Dripper
+    //! ----------  ---------
+    //!    * * *
+    //!  *   *   *      *
+    //!  *   *   *    * * *
+    //!      *        * * *
+    //!      *      * * * * *
+    //!    * * *    * * * * *
+    //!  * * * * *    * * *
 
     // Helper function
     always_on (on, data[1]);
