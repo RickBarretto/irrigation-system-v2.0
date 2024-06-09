@@ -3,12 +3,14 @@ module flipflop_d (
 
     input clock,
     input reset,
+	 input set,
     input d
 );
 
     always @ (posedge clock) begin
-        if (!reset) q <= 0;
-        else        q <= d;
+        if (!reset)    q <= 0;
+		  else if (!set) q <= 1;
+        else           q <= d;
     end
 
 endmodule
