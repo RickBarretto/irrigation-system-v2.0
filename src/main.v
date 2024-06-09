@@ -193,9 +193,9 @@ module main(
 		water_column_0,
 		water_column_1,
 
-		irrigation_col_2,
-		irrigation_col_1,
-		irrigation_col_0
+		irrigation_column_2,
+		irrigation_column_1,
+		irrigation_column_0
 	);
 
 	matrix_ring_decoder decode_ring(
