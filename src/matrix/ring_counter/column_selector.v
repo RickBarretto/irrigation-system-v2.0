@@ -6,12 +6,14 @@
 module column_selector (
     output [2:0]col,
     
-    input clock,
-	input clear
+    input clock
 );
 
-    flipflop_d (col[2], clock, 1, clear, col[0]);
-    flipflop_d (col[1], clock, clear, 1, col[1]);
-    flipflop_d (col[0], clock, clear, 1, col[2]);
+    // Reset = 1
+    // Clear = 0
+
+    flipflop_d (col[2], clock, 1, 0, col[0]);
+    flipflop_d (col[1], clock, 0, 1, col[1]);
+    flipflop_d (col[0], clock, 0, 1, col[2]);
 
 endmodule
