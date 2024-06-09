@@ -70,16 +70,16 @@ displays_point = 96     # 7 SEG-P
 
 # Matrix
 
-matrix_col0 = 97        # Column 0
-matrix_col1 = 99        # Column 1
-matrix_col2 = 95        # Column 2
-matrix_col3 = 82        # Column 3
-matrix_col4 = 78        # Column 4
+matrix_col_0 = 97        # Column 0
+matrix_col_1 = 99        # Column 1
+matrix_col_2 = 95        # Column 2
+matrix_col_3 = 82        # Column 3
+matrix_col_4 = 78        # Column 4
 
-matrix_row0 = 85        # Row 0
-matrix_row1 = 83        # Row 1 
-matrix_row2 = 84        # Row 2
-matrix_row3 = 87        # Row 3
-matrix_row4 = 81        # Row 4
-matrix_row5 = 91        # Row 5
-matrix_row6 = 89        # Row 6
+matrix_row_0 = 85        # Row 0
+matrix_row_1 = 83        # Row 1 
+matrix_row_2 = 84        # Row 2
+matrix_row_3 = 87        # Row 3
+matrix_row_4 = 81        # Row 4
+matrix_row_5 = 91        # Row 5
+matrix_row_6 = 89        # Row 6
