@@ -41,8 +41,8 @@ module water_level_decoder (
     always_on(on, data[1]);
     not (off, on);
 
-    not (not_1, data[1])
-    not (not_0, data[0])
+    not (not_1, data[1]);
+    not (not_0, data[0]);
 
     // Column 1 is always off
     pipe (col_1[6], off);   // Y = 1
@@ -54,18 +54,18 @@ module water_level_decoder (
     pipe (col_1[0], off);   // Y = 1
 
     // Bottom is always off
-    pipe (col_0[0], off)    // Y = 1
+    pipe (col_0[0], off);   // Y = 1
 
 
     // Variable Dots
 
-    or   (col_1[6], not_1, not_0);  // Y = B1' + B0'
-    pipe (col_1[5], col_1[6]);      // Y = B1' + B0'
+    or   (col_0[6], not_1, not_0);  // Y = B1' + B0'
+    pipe (col_0[5], col_1[6]);      // Y = B1' + B0'
 
-    pipe (col[4], data[1]);         // Y = B1
-    pipe (col[3], data[1]);         // Y = B1
+    pipe (col_0[4], data[1]);       // Y = B1
+    pipe (col_0[3], data[1]);       // Y = B1
 
-    and  (col_1[2], not_1, not_0);  // Y = B1' * B0'
-    pipe (col_1[1], col_1[1]);      // Y = B1' * B0'
+    and  (col_0[2], not_1, not_0);  // Y = B1' * B0'
+    pipe (col_0[1], col_1[1]);      // Y = B1' * B0'
 
 endmodule
