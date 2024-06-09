@@ -15,44 +15,13 @@ module matrix_driver (
    	input [6:0] col_1, //! Columns: 1 & 3
    	input [6:0] col_0  //! Columns: 2
 );
-	
-	wire [6:0] bus_column_2;
-	wire [6:0] bus_column_1;
-	wire [6:0] bus_column_0;
-	
-	and (bus_column_2[6], ring_counter[2], col_2[6]);
-	and (bus_column_2[5], ring_counter[2], col_2[5]);
-	and (bus_column_2[4], ring_counter[2], col_2[4]);
-	and (bus_column_2[3], ring_counter[2], col_2[3]);
-	and (bus_column_2[2], ring_counter[2], col_2[2]);
-	and (bus_column_2[1], ring_counter[2], col_2[1]);
-   	and (bus_column_2[0], ring_counter[2], col_2[0]);
-	
-	and (bus_column_1[6], ring_counter[1], col_1[6]);
-	and (bus_column_1[5], ring_counter[1], col_1[5]);
-	and (bus_column_1[4], ring_counter[1], col_1[4]);
-	and (bus_column_1[3], ring_counter[1], col_1[3]);
-	and (bus_column_1[2], ring_counter[1], col_1[2]);
-	and (bus_column_1[1], ring_counter[1], col_1[1]);
-   	and (bus_column_1[0], ring_counter[1], col_1[0]);
-	
-	and (bus_column_0[6], ring_counter[0], col_0[6]);
-	and (bus_column_0[5], ring_counter[0], col_0[5]);
-	and (bus_column_0[4], ring_counter[0], col_0[4]);
-	and (bus_column_0[3], ring_counter[0], col_0[3]);
-	and (bus_column_0[2], ring_counter[0], col_0[2]);
-	and (bus_column_0[1], ring_counter[0], col_0[1]);
-   	and (bus_column_0[0], ring_counter[0], col_0[0]);
-	
-	// Merging rows
 
-	or (row_0, bus_column_0[6], bus_column_1[6], bus_column_2[6]);
-	or (row_1, bus_column_0[5], bus_column_1[5], bus_column_2[5]);
-	or (row_2, bus_column_0[4], bus_column_1[4], bus_column_2[4]);
-	or (row_3, bus_column_0[3], bus_column_1[3], bus_column_2[3]);
-	or (row_4, bus_column_0[2], bus_column_1[2], bus_column_2[2]);
-	or (row_5, bus_column_0[1], bus_column_1[1], bus_column_2[1]);
-   	or (row_6, bus_column_0[0], bus_column_1[0], bus_column_2[0]);
-	
+	multiplexer_3x1 (row_0, col_2[6], col_1[6], col_0[6], ring_counter);
+	multiplexer_3x1 (row_1, col_2[5], col_1[5], col_0[5], ring_counter);
+	multiplexer_3x1 (row_2, col_2[4], col_1[4], col_0[4], ring_counter);
+	multiplexer_3x1 (row_3, col_2[3], col_1[3], col_0[3], ring_counter);
+	multiplexer_3x1 (row_4, col_2[2], col_1[2], col_0[2], ring_counter);
+	multiplexer_3x1 (row_5, col_2[1], col_1[1], col_0[1], ring_counter);
+	multiplexer_3x1 (row_6, col_2[0], col_1[0], col_0[0], ring_counter);
 	
 endmodule 
