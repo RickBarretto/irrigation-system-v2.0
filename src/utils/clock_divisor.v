@@ -1,4 +1,4 @@
-module clock_div(
+module clock_divisor(
     output new_frequency,
 
     input clock,

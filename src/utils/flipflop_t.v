@@ -6,7 +6,7 @@ module flipflop_t (
     input t
 );
 
-    always @ (posedge clock) begin
+    always @(posedge clock) begin
         if (!reset) q <= 0;
         else if (t) q <= ~q;
         else        q <= q;
