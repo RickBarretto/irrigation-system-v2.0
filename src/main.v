@@ -182,4 +182,52 @@ module main(
 		encoded_irrigation
 	);
 
+	// Matrix Sync
+
+	wire [6:0] synced_column_2;
+	wire [6:0] synced_column_1;
+	wire [6:0] synced_column_0;
+
+	select_matrix_display_mode select_display_mode(
+		synced_column_2,
+		synced_column_1,
+		synced_column_0,
+
+		reduced_clock,
+
+		water_column_1,
+		water_column_0,
+		water_column_1,
+
+		irrigation_col_2,
+		irrigation_col_1,
+		irrigation_col_0
+	);
+
+	matrix_ring_decoder decode_ring(
+		matrix_col_0,
+		matrix_col_1,
+		matrix_col_2,
+		matrix_col_3,
+		matrix_col_4,
+
+		ring_counting
+	);
+
+	matrix_driver drive_matrix(
+		matrix_row_0,
+		matrix_row_1,
+		matrix_row_2,
+		matrix_row_3,
+		matrix_row_4,
+		matrix_row_5,
+		matrix_row_6,
+
+		ring_counting,
+
+		synced_column_2,
+		synced_column_1,
+		synced_column_0,
+	);
+
 endmodule
