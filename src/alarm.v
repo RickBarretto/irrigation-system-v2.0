@@ -7,7 +7,7 @@
 module alarm_controller (
     output alarm_on,
 
-    input mid_water_level, 
+    input mid_water_level,
     input conflicting_values
 );
 

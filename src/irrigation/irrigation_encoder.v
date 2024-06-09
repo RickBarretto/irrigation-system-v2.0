@@ -6,4 +6,4 @@ module irrigation_encoder (
 	not (encoded_irrigation[1], splinker_mode_on);
 	and (encoded_irrigation[0], splinker_mode_on, splinker_mode_on);
 
-endmodule 
+endmodule

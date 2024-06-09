@@ -6,7 +6,7 @@ module main(
 	input earth_humidity,
 	input air_humidity,
 	input low_temperature,
-	
+
 	input selector,
 	input clock,
 
@@ -15,7 +15,7 @@ module main(
 
 	// Array of LEDs Display
 	output water_supply_valvule,
-	output counter_2, 
+	output counter_2,
 	output counter_1,
 	output counter_0,
 	output splinker_bomb,
@@ -25,16 +25,16 @@ module main(
 	output segment_a, output segment_b, output segment_c,
     output segment_d, output segment_e, output segment_f,
     output segment_g,
-	 
-	output display_0, output display_1, 
-	output display_2, output display_3, 
+
+	output display_0, output display_1,
+	output display_2, output display_3,
 	output displays_point,
 
 	// Matrix of LEDs Display
-	output matrix_col_0, output matrix_col_1, output matrix_col_2, 
+	output matrix_col_0, output matrix_col_1, output matrix_col_2,
 	output matrix_col_3, output matrix_col_4,
 
-	output matrix_row_0, output matrix_row_1, output matrix_row_2, 
+	output matrix_row_0, output matrix_row_1, output matrix_row_2,
 	output matrix_row_3, output matrix_row_4, output matrix_row_5,
 	output matrix_row_6
 
@@ -88,17 +88,17 @@ module main(
 
 	// Output
 	and open_splinker(
-		splinker_bomb, 
-		
-		splinker_mode_on, 
+		splinker_bomb,
+
+		splinker_mode_on,
 		irrigation_on
 	);
 
 	// Output
 	and open_dripper(
-		dripper_valvule, 
-		
-		dripper_mode_on, 
+		dripper_valvule,
+
+		dripper_mode_on,
 		irrigation_on
 	);
 
@@ -109,9 +109,9 @@ module main(
 
 	// Output
 	alarm_controller enable_alarm(
-		alarm, 
-		
-		mid_water_level, 
+		alarm,
+
+		mid_water_level,
 		conflicting_values
 	);
 
@@ -130,19 +130,19 @@ module main(
 		mid_water_level,
 		low_water_level
 	);
-	
+
 	irrigation_encoder encode_irrigation(
 		encoded_irrigation,
 
 		splinker_mode_on
 	);
-	
+
 
 	//-------------------------------------------
 	// Matrix Display related
 	//-------------------------------------------
 
-	wire [2:0] ring_counting;	
+	wire [2:0] ring_counting;
 
 	// Clock reduction
 
@@ -152,12 +152,12 @@ module main(
 	// Ring Counter
 
 	column_selector select_column(ring_counting, reduced_clock);
-	
+
 	// Output
 	pipe redirect_couting_2(led2, ring_counting[2]);
 	pipe redirect_couting_1(led1, ring_counting[1]);
 	pipe redirect_couting_0(led0, ring_counting[0]);
-	
+
 	// Matrix Columns decoders
 
 	wire [6:0] water_column_1;
@@ -166,19 +166,19 @@ module main(
 	water_level_decoder decode_water_level_to_matrix(
 	   	water_column_1,
 	   	water_column_0,
-		
+
 		encoded_water
 	);
 
 	wire [6:0] irrigation_column_2;
 	wire [6:0] irrigation_column_1;
 	wire [6:0] irrigation_column_0;
-	
+
 	irrigation_mode_decoder decode_irrigation_mode_to_matrix(
 		irrigation_column_2,
 		irrigation_column_1,
 		irrigation_column_0,
-		
+
 		encoded_irrigation
 	);
 

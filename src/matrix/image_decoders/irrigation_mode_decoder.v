@@ -1,19 +1,13 @@
 
 // Helper modules
 
-module is_splinker (
-    output out,
-    input [1:0]data
-);
+module is_splinker(output out, input [1:0]data);
     not (not_dripper, data[1]);
     and (out, not_dripper, data[0]);
 endmodule
 
 
-module is_dripper (
-    output out,
-    input [1:0]data
-);
+module is_dripper(output out, input [1:0]data);
     not (not_splinker, data[0]);
     and (out, not_splinker, data[1]);
 endmodule
@@ -21,10 +15,10 @@ endmodule
 
 
 //! LED matrix's decoder
-//! 
-//! This decoder takes an encoded data and generates the needed images 
+//!
+//! This decoder takes an encoded data and generates the needed images
 //! to be displayed on the LED matrix of the CPLD Kit, when showing the irrigation system.
-//! 
+//!
 //! To reduce resources usage, the images have been choosen to be simetric on the Y-axis,
 //! what means that only three columns are needed for a 5-column display.
 module irrigation_mode_decoder (
@@ -34,7 +28,7 @@ module irrigation_mode_decoder (
 
     //! Quick explanation of the entries
     //! --------------------------------
-    //! 
+    //!
     //! Data Meaning
     //! ---- ---------------
     //! 01   Splinker output
@@ -45,9 +39,6 @@ module irrigation_mode_decoder (
 
     // Helper function
     always_on (on, data[1]);
-    not (b1_not, data[1]);
-    not (b0_not, data[0]);
-
 
     // =================================
     // When data is a Splinker
@@ -73,7 +64,7 @@ module irrigation_mode_decoder (
 
     // col_1[6] = 0
     not (col_1[6], on);
-    
+
 
     // =================================
     // Always On
@@ -98,11 +89,11 @@ module irrigation_mode_decoder (
     // =================================
     // When data is a Dripper
 
-    // col_2[2:1] = b1b0' 
+    // col_2[2:1] = b1b0'
     is_dripper (col_2[2], data);
     is_dripper (col_2[1], data);
 
     // col_1[5] = b1b0'
     is_dripper (col_1[5], data);
 
-endmodule 
+endmodule

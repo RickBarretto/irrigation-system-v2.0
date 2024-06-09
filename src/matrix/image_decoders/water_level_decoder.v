@@ -1,7 +1,7 @@
 //! LED matrix's decoder
-//! 
+//!
 //! This decoder takes an encoded data and generates the images to be displayed on the LED matrix of the CPLD Kit
-//! 
+//!
 //! To reduce resources usage, the images have been choosen to be simetric on the Y-axis,
 //! what means that only three columns are needed for a 5-column display.
 module water_level_decoder (
@@ -31,7 +31,7 @@ module water_level_decoder (
 
     // Column 00
     // Shows the water level itself
-    
+
     // row[6,5] = b1*b0
     and (col_0[6], data[1], data[0]);
     and (col_0[5], data[1], data[0]);
@@ -39,7 +39,7 @@ module water_level_decoder (
     // row[4,3] = b1
     pipe (col_0[4], data[1]);
     pipe (col_0[3], data[1]);
-    
+
     // row[2,1] = b0 + b1
     or (col_0[2], data[0], data[1]);
     or (col_0[1], data[0], data[1]);
@@ -48,4 +48,4 @@ module water_level_decoder (
     always_on (col_0[0], data[1]);
 
 
-endmodule 
+endmodule

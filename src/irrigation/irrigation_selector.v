@@ -15,12 +15,11 @@ module irrigation_selector(
     input mid_water_level
 );
 
+    not (air_dryness, air_humidity);
+    not (heat_climate, low_temperature);
 
-        not (air_dryness, air_humidity);
-        not (heat_climate, low_temperature);
+    and (wire1, mid_water_level, heat_climate);
 
-        and (wire1, mid_water_level, heat_climate);
-
-        or (splinker_mode_on, air_dryness, wire1);
+    or (splinker_mode_on, air_dryness, wire1);
 
 endmodule

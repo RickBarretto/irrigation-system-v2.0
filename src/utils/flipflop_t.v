@@ -12,4 +12,4 @@ module flipflop_t (
         else        q <= q;
     end
 
-endmodule 
+endmodule

@@ -1,4 +1,4 @@
-//! Select Matrix's Display Mode is a multiplexer that chooses between 
+//! Select Matrix's Display Mode is a multiplexer that chooses between
 //! Irrigation mode display and Water mode display.
 //!
 //! This changes when the clock, changes.
@@ -7,13 +7,13 @@ module select_matrix_display_mode (
 	output [6:0] column_2,
 	output [6:0] column_1,
 	output [6:0] column_0,
-	
+
 	input clock,
-	
+
 	input [6:0] water_col_2,
 	input [6:0] water_col_1,
 	input [6:0] water_col_0,
-	
+
 	input [6:0] irrigation_col_2,
 	input [6:0] irrigation_col_1,
 	input [6:0] irrigation_col_0
@@ -42,5 +42,5 @@ module select_matrix_display_mode (
 	multiplexer_2x1(column_0[2], water_col_0[2], irrigation_col_0[2], clock);
 	multiplexer_2x1(column_0[1], water_col_0[1], irrigation_col_0[1], clock);
 	multiplexer_2x1(column_0[0], water_col_0[0], irrigation_col_0[0], clock);
-	
-endmodule 
+
+endmodule

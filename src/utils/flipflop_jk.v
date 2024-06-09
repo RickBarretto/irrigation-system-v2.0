@@ -9,9 +9,9 @@ module flipflop_jk (
 );
 
 	always @(posedge clock or posedge clear or posedge preset) begin
-		if (clear)  
+		if (clear)
 			q <= 0;
-		else if (preset) 
+		else if (preset)
 			q <= 1;
 		else
 			case ({j, k})
@@ -24,4 +24,4 @@ module flipflop_jk (
 
 	not (not_q, q);
 
-endmodule 
+endmodule
