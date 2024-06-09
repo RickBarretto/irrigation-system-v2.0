@@ -15,11 +15,8 @@ module water_level_decoder (
     //!  01   Low Water Level
     //!  10   Mid Water Level
     //!  11   High Water Level
-    input [1:0]data
+    input [1:0] data
 );
-
-    // Helper function
-    always_on (on, data[1]);
 
     // Column 01 -- Always on
     // Shows the border of the watter supply
@@ -40,15 +37,15 @@ module water_level_decoder (
     and (col_0[5], data[1], data[0]);
 
     // row[4,3] = b1
-    and (col_0[4], data[1], on);
-    and (col_0[3], data[1], on);
+    pipe (col_0[4], data[1]);
+    pipe (col_0[3], data[1]);
     
     // row[2,1] = b0 + b1
     or (col_0[2], data[0], data[1]);
     or (col_0[1], data[0], data[1]);
 
     // row[0] = 1
-    or (col_0[0], data[1], on);
+    always_on (col_0[0], data[1]);
 
 
 endmodule 
