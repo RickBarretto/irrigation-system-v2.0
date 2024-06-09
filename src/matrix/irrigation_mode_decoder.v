@@ -56,10 +56,10 @@ module irrigation_mode_decoder (
     // 00
 
     // col_2[5] = 0
-    not (col_2[5], always_on);
+    not (col_2[5], on);
 
     // col_1[6] = 0
-    not (col_1[6], always_on);
+    not (col_1[6], on);
     
 
     // =================================
