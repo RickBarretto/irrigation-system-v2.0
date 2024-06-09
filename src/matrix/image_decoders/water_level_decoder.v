@@ -18,34 +18,5 @@ module water_level_decoder (
     input [1:0] data
 );
 
-    // Column 01 -- Always on
-    // Shows the border of the watter supply
-
-    always_on (col_1[6], data[1]);
-    always_on (col_1[5], data[1]);
-    always_on (col_1[4], data[1]);
-    always_on (col_1[3], data[1]);
-    always_on (col_1[2], data[1]);
-    always_on (col_1[1], data[1]);
-    always_on (col_1[0], data[1]);
-
-    // Column 00
-    // Shows the water level itself
-
-    // row[6,5] = b1*b0
-    and (col_0[6], data[1], data[0]);
-    and (col_0[5], data[1], data[0]);
-
-    // row[4,3] = b1
-    pipe (col_0[4], data[1]);
-    pipe (col_0[3], data[1]);
-
-    // row[2,1] = b0 + b1
-    or (col_0[2], data[0], data[1]);
-    or (col_0[1], data[0], data[1]);
-
-    // row[0] = 1
-    always_on (col_0[0], data[1]);
-
 
 endmodule
