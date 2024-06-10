@@ -7,10 +7,10 @@ module column_selector (output [2:0] col, input clock, input pulse);
 
     not (released, pulse);
 
-    //                     Q     clock     set      reset     D
-    //                   ------- ------ --------- --------- ------
-    simple_flipflop_d D2(col[2], clock, released,     0   , col[0]);
-    simple_flipflop_d D1(col[1], clock,     0   , released, col[2]);
-    simple_flipflop_d D0(col[0], clock,     0   , released, col[1]);
+    //              Q     clock     set      reset     D
+    //            ------- ------ --------- --------- ------
+    flipflop_d D2(col[2], clock, released,     0   , col[0]);
+    flipflop_d D1(col[1], clock,     0   , released, col[2]);
+    flipflop_d D0(col[0], clock,     0   , released, col[1]);
 
 endmodule
