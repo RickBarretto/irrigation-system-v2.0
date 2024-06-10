@@ -123,7 +123,6 @@ module main(
 	//-------------------------------------------
 
 	wire [1:0] encoded_water;
-	wire [1:0] encoded_irrigation;
 
 	water_encoder encode_water(
 		encoded_water,
