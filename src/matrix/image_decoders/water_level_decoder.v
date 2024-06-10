@@ -33,6 +33,14 @@ module water_level_decoder (
     //!  *       *  * * * * *  * * * * *  * * * * *
     //!  * * * * *  * * * * *  * * * * *  * * * * *
 
+
+    // lv 6 5 4 3 2 1
+    // -- - - - - - -
+    // 00 1 1 1 1 1 1
+    // 01 1 1 1 1 0 0
+    // 10 1 1 0 0 0 0
+    // 11 0 0 0 0 0 0
+
     // Helper wires
 
     wire not_1, not_0;
@@ -60,12 +68,12 @@ module water_level_decoder (
     // Variable Dots
 
     or   (col_0[6], not_1, not_0);  // Y = B1' + B0'
-    pipe (col_0[5], col_1[6]);      // Y = B1' + B0'
+    pipe (col_0[5], col_0[6]);      // Y = B1' + B0'
 
-    pipe (col_0[4], data[1]);       // Y = B1
-    pipe (col_0[3], data[1]);       // Y = B1
+    pipe (col_0[4], not_1);         // Y = B1'
+    pipe (col_0[3], col_0[4]);      // Y = B1'
 
     and  (col_0[2], not_1, not_0);  // Y = B1' * B0'
-    pipe (col_0[1], col_1[1]);      // Y = B1' * B0'
+    pipe (col_0[1], col_0[1]);      // Y = B1' * B0'
 
 endmodule
