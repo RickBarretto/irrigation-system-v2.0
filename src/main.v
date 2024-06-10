@@ -9,6 +9,7 @@ module main(
 
 	input selector,
 	input clock,
+	input pulse,
 
 	// LED RGB
 	output alarm,
@@ -146,7 +147,7 @@ module main(
 
 	// Ring Counter
 
-	column_selector select_column(ring_counting, reduced_clock);
+	column_selector select_column(ring_counting, reduced_clock, pulse);
 
 	// Output
 	pipe redirect_couting_2(led2, ring_counting[2]);
