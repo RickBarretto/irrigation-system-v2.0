@@ -145,6 +145,10 @@ module main(
 	clock_divisor (reduced_clock_1, clock, 1);
 	clock_divisor (reduced_clock, reduced_clock_1, 1);
 
+	clock_divisor (reduced_clock_2, reduced_clock, 1);
+	clock_divisor (reduced_clock_3, reduced_clock_2, 1);
+	clock_divisor (reduced_clock_4, reduced_clock_3, 1);
+
 
 	// Ring Counter
 
@@ -190,7 +194,7 @@ module main(
 		synced_column_1,
 		synced_column_0,
 
-		selector,
+		reduced_clock_4,
 
 		water_column_1,
 		water_column_0,
