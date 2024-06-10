@@ -36,6 +36,9 @@ low_water_level = 42    # CH0
 
 selector = 35           # CH7
 
+# Clock
+clock = 12
+
 
 [pin_planner.output]
 
