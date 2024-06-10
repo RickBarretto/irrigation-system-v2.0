@@ -57,12 +57,12 @@ module irrigation_mode_decoder (
 
     // Column 0
     pipe (col_0[6], dripper_mode_on);   // Y = S'
-    pipe (col_0[5], on);                // Y = 1
-    pipe (col_0[4], on);                // Y = 1
-    pipe (col_0[3], on);                // Y = 1
-    pipe (col_0[2], on);                // Y = 1
-    pipe (col_0[1], on);                // Y = 1
-    pipe (col_0[0], on);                // Y = 1
+    pipe (col_0[5], off);               // Y = 1
+    pipe (col_0[4], off);               // Y = 1
+    pipe (col_0[3], off);               // Y = 1
+    pipe (col_0[2], off);               // Y = 1
+    pipe (col_0[1], off);               // Y = 1
+    pipe (col_0[0], off);               // Y = 1
 
 
 endmodule
