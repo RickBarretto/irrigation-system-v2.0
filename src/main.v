@@ -142,7 +142,8 @@ module main(
 
 	// Clock reduction
 
-	clock_divisor divide_clock(reduced_clock, clock, 1);
+	clock_divisor (reduced_clock_1, clock, 1);
+	clock_divisor (reduced_clock, reduced_clock_1, 1);
 
 
 	// Ring Counter
