@@ -45,13 +45,13 @@ module water_level_decoder (
     not (not_0, data[0]);
 
     // Column 1 is always off
-    pipe (col_1[6], off);   // Y = 1
-    pipe (col_1[5], off);   // Y = 1
-    pipe (col_1[4], off);   // Y = 1
-    pipe (col_1[3], off);   // Y = 1
-    pipe (col_1[2], off);   // Y = 1
-    pipe (col_1[1], off);   // Y = 1
-    pipe (col_1[0], off);   // Y = 1
+    pipe (col_1[6], off);   // Y = 0
+    pipe (col_1[5], off);   // Y = 0
+    pipe (col_1[4], off);   // Y = 0
+    pipe (col_1[3], off);   // Y = 0
+    pipe (col_1[2], off);   // Y = 0
+    pipe (col_1[1], off);   // Y = 0
+    pipe (col_1[0], off);   // Y = 0
 
     // Bottom is always off
     pipe (col_0[0], off);   // Y = 1
