@@ -189,7 +189,7 @@ module main(
 		synced_column_1,
 		synced_column_0,
 
-		reduced_clock,
+		select,
 
 		water_column_1,
 		water_column_0,
