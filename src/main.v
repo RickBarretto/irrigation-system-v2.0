@@ -158,7 +158,7 @@ module main(
 	// Matrix Columns decoders
 
 	wire [6:0] water_column_1;
-	wire [6:0] water_column_2;
+	wire [6:0] water_column_0;
 
 	water_level_decoder decode_water_level_to_matrix(
 	   	water_column_1,
@@ -194,7 +194,7 @@ module main(
 
 		water_column_1,
 		water_column_0,
-		water_column_1,
+		water_column_0,
 
 		irrigation_column_2,
 		irrigation_column_1,
