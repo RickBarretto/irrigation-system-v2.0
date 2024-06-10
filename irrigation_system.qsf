@@ -47,6 +47,7 @@ set_location_assignment PIN_38 -to high_water_level
 set_location_assignment PIN_40 -to mid_water_level
 set_location_assignment PIN_42 -to low_water_level
 set_location_assignment PIN_35 -to selector
+set_location_assignment PIN_52 -to pulse
 set_location_assignment PIN_12 -to clock
 
 # Output Setting
