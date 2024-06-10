@@ -11,11 +11,11 @@ module matrix_ring_decoder(
     input [2:0] ring_counter
 );
 
-	pipe (column_0, ring_counter[0]);
+	pipe (column_0, ring_counter[2]);
 	pipe (column_1, ring_counter[1]);
-	pipe (column_2, ring_counter[2]);
+	pipe (column_2, ring_counter[0]);
     pipe (column_3, ring_counter[1]);
-	pipe (column_4, ring_counter[0]);
+	pipe (column_4, ring_counter[2]);
 
 
 endmodule
