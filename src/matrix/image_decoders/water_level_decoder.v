@@ -54,7 +54,7 @@ module water_level_decoder (
     pipe (col_1[0], off);   // Y = 0
 
     // Bottom is always off
-    pipe (col_0[0], off);   // Y = 1
+    pipe (col_0[0], off);   // Y = 0
 
 
     // Variable Dots
