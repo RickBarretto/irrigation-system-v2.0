@@ -150,9 +150,9 @@ module main(
 	column_selector select_column(ring_counting, reduced_clock, pulse);
 
 	// Output
-	pipe redirect_couting_2(led2, ring_counting[2]);
-	pipe redirect_couting_1(led1, ring_counting[1]);
-	pipe redirect_couting_0(led0, ring_counting[0]);
+	pipe redirect_couting_2(counter_2, ring_counting[2]);
+	pipe redirect_couting_1(counter_1, ring_counting[1]);
+	pipe redirect_couting_0(counter_0, ring_counting[0]);
 
 	// Matrix Columns decoders
 
