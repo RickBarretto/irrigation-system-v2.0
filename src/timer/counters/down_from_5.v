@@ -25,7 +25,7 @@ module down_from_5 (
 
     // d2 = q2'q1'q0' + q2q0
     nor (d1_term_1, q_bus[2], q_bus[1], q_bus[0]);
-    and (d1_term_1, q_bus[2], q_bus[0]);
+    and (d1_term_2, q_bus[2], q_bus[0]);
     or  (d_bus[2], d1_term_1, d1_term_2);
 
     // d1 = q1q0 + q2q0'
