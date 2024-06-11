@@ -30,21 +30,21 @@ module down_from_9 (
 
 
     // d3 = q3'q2'q1'q0' + q3q0
-    nor (c3_term_1, q_bus[3], q_bus[2], q_bus[1], q_bus[0]);
-    and (c3_term_2, q_bus[3], q_bus[0]);
-    or  (d_bus[3], c3_term_1, c3_term_2);
+    nor (d3_term_1, q_bus[3], q_bus[2], q_bus[1], q_bus[0]);
+    and (d3_term_2, q_bus[3], q_bus[0]);
+    or  (d_bus[3], d3_term_1, d3_term_2);
 
     // d2 = q2q0 + q2q1 + q3q0'
-    and (c2_term_1, q_bus[2], q_bus[0]);
-    and (c2_term_2, q_bus[2], q_bus[1]);
-    and (c2_term_3, q_bus[3], q_neg_bus[0]);
-    or  (d_bus[2], c2_term_1, c2_term_2, c2_term_3);
+    and (d2_term_1, q_bus[2], q_bus[0]);
+    and (d2_term_2, q_bus[2], q_bus[1]);
+    and (d2_term_3, q_bus[3], q_neg_bus[0]);
+    or  (d_bus[2], d2_term_1, d2_term_2, d2_term_3);
 
     // d1 = q1q0 + q2q1'q0' + q3q0'
-    and (c1_term_1, q_bus[1], q_bus[0]);
-    and (c1_term_2, q_bus[2], q_neg_bus[1], q_neg_bus[0]);
-    and (c1_term_3, q_bus[3], q_neg_bus[0]);
-    or  (d_bus[1], c1_term_1, c1_term_2, c1_term_3);
+    and (d1_term_1, q_bus[1], q_bus[0]);
+    and (d1_term_2, q_bus[2], q_neg_bus[1], q_neg_bus[0]);
+    and (d1_term_3, q_bus[3], q_neg_bus[0]);
+    or  (d_bus[1], d1_term_1, d1_term_2, d1_term_3);
 
     // d0 = q0'
     or  (d_bus[0], q_neg_bus[0]);
