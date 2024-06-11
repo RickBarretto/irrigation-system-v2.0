@@ -23,17 +23,17 @@ module down_from_5 (
     not(q_neg_bus[1], q_bus[1]);
     not(q_neg_bus[0], q_bus[0]);
 
-    // d2 = c2'c1'c0' + c2c0
+    // d2 = q2'q1'q0' + q2q0
     nor (d1_term_1, q_bus[2], q_bus[1], q_bus[0]);
     and (d1_term_1, q_bus[2], q_bus[0]);
     or  (d_bus[2], d1_term_1, d1_term_2);
 
-    // d1 = c1c0 + c2c0'
+    // d1 = q1q0 + q2q0'
     and (d2_term_1, q_bus[1], q_bus[0]);
     and (d2_term_2, q_bus[2], q_neg_bus[0]);
     or  (d_bus[1], d2_term_1, d2_term_2);
 
-    // d0 = c0'
+    // d0 = q0'
     not (d_bus[0], q_bus[0]);
 
     flipflop_d (q_bus[2], clock, set[2], reset[2], d_bus[2]);
