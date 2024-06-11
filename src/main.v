@@ -55,19 +55,6 @@ module main(
 
 
 	//-------------------------------------------
-	// Water Supply
-	//-------------------------------------------
-
-	// Output
-	water_supply_controller open_water_supply(
-		water_supply_valvule,
-
-		conflicting_values,
-		high_water_level
-	);
-
-
-	//-------------------------------------------
 	// Irrigation Controller and Selector
 	//-------------------------------------------
 
@@ -246,6 +233,11 @@ module main(
 	wire [3:0] data_0;
 	wire [3:0] data;
 
+	// Output
+	water_supply_controller open_water_supply(
+		water_supply_valvule, conflicting_values, high_water_level
+	);
+
 	down_from_3 (data_2, 2'b00, 2'b00, reduced_clock_4);
 	down_from_9 (data_1, 4'b0000, 4'b0000, reduced_clock_4);
 	down_from_5 (data_0, 3'b000, 3'b000, reduced_clock_4);
@@ -255,7 +247,7 @@ module main(
 
 		selected_display,
 
-		4'b0000,
+		water_supply_valvule,
 		data_2,
 		data_1,
 		data_0
