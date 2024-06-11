@@ -246,9 +246,9 @@ module main(
 	wire [3:0] data_0;
 	wire [3:0] data;
 
-	down_from_3 (data_2, 4'b0000, 4'b0000, reduced_clock_4);
-	down_from_5 (data_1, 4'b0000, 4'b0000, reduced_clock_4);
-	down_from_9 (data_0, 4'b0000, 4'b0000, reduced_clock_4);
+	down_from_3 (data_2, 2'b00, 2'b00, reduced_clock_4);
+	down_from_9 (data_1, 4'b0000, 4'b0000, reduced_clock_4);
+	down_from_5 (data_0, 3'b000, 3'b000, reduced_clock_4);
 
 	display_driver (
 		data,
