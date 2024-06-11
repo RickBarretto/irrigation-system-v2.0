@@ -246,16 +246,16 @@ module main(
 	wire [3:0] data_0;
 	wire [3:0] data;
 
-	down_from_9 (data_2, 0'b0000, 0'b0000, reduced_clock_4);
+	down_from_9 (data_2, 4'b0000, 4'b0000, reduced_clock_4);
 
 	display_driver (
 		data,
 
 		selected_display,
 
-		0'b1100,
-		0'b0001,
-		0'b0010,
+		4'b1100,
+		4'b0001,
+		4'b0010,
 		data_2
 	);
 
