@@ -154,11 +154,6 @@ module main(
 
 	column_selector select_column(ring_counting, reduced_clock, pulse);
 
-	// Output
-	pipe redirect_couting_2(counter_2, ring_counting[2]);
-	pipe redirect_couting_1(counter_1, ring_counting[1]);
-	pipe redirect_couting_0(counter_0, ring_counting[0]);
-
 	// Matrix Columns decoders
 
 	wire [6:0] water_column_1;
@@ -229,6 +224,46 @@ module main(
 		synced_column_2,
 		synced_column_1,
 		synced_column_0
+	);
+
+	// Display
+
+	wire [3:0] selected_display;
+
+	display_selector (
+		selected_display,
+		reduced_clock,
+		pulse
+	);
+
+	pipe (display_3, selected_display[3]);
+	pipe (display_2, selected_display[2]);
+	pipe (display_1, selected_display[1]);
+	pipe (display_0, selected_display[0]);
+
+	wire [3:0] data_2;
+	wire [3:0] data_1;
+	wire [3:0] data_0;
+	wire [3:0] data;
+
+	down_from_9 (data_2, 0'b0000, 0'b0000, reduced_clock_4);
+
+	display_driver (
+		data,
+
+		selected_display,
+
+		0'b1100,
+		0'b0001,
+		0'b0010,
+		data_2
+	);
+
+	display_decoder (
+		segment_a, segment_b, segment_c,
+		segment_d, segment_e, segment_f, segment_g,
+
+		data
 	);
 
 endmodule
