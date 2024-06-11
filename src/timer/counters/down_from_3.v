@@ -1,4 +1,4 @@
-module down_from_5 (
+module down_from_3 (
     output [1:0] q_bus,
 
     input [1:0] set,
