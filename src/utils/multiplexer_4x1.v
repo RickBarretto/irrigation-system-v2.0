@@ -25,7 +25,7 @@ module multiplexer_4x1(
 
     wire [3:0] bus;
 
-    and (bus[3], bit_2, ring_counter[3]);
+    and (bus[3], bit_3, ring_counter[3]);
     and (bus[2], bit_2, ring_counter[2]);
     and (bus[1], bit_1, ring_counter[1]);
     and (bus[0], bit_0, ring_counter[0]);
