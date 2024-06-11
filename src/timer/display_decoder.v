@@ -86,7 +86,7 @@ module display_decoder(
     // Segment E = A'BC'D' + B'C'D + A'CD
     and (e_term_1, negative[3], data[2], negative[1], negative[1]);
     and (e_term_2, negative[2], negative[1], data[0]);
-    and (e_term_3, );
+    and (e_term_3, negative[3], data[1], data[0]);
     or  (e, e_term_1, e_term_2, e_term_3);
 
     // Segment F = A'CD + B'CD' + ABC' + A'B'D
