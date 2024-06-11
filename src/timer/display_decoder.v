@@ -41,7 +41,7 @@ module display_decoder(
     //!  8  1000  0 0 0 0 0 0 0
     //!  9  1001  0 0 0 0 1 0 0
     //!  .  1010  * * * * * * *
-    //!  R  1011  0 1 1 0 0 0 0
+    //!  E  1011  0 1 1 0 0 0 0
     //!  r  1100  1 1 1 1 0 1 0
     //!  o  1101  1 1 0 0 0 1 0
     //!  A  1110  0 0 0 1 0 0 0
@@ -63,12 +63,12 @@ module display_decoder(
     and (a_term_3, data[3], data[2], negative[1]);
     or  (a, a_term_1, a_term_2, a_term_3);
 
-    // Segment B = ABC'D' + A'B'C'D + A'BCD' + ACD
-    and (b_term_1, data[3], data[2], negative[1], negative[0]);
-    and (b_term_2, negative[3], negative[2], negative[1], data[0]);
-    and (b_term_3, negative[3], data[2], data[1], negative[0]);
-    and (b_term_4, data[3], data[1], data[0]);
-    or  (b, b_term_1, b_term_2, b_term_3, b_term_3);
+    // Segment B = A'BCD' + BC'D + ACD + ABC'
+    and (b_term_1, negative[3], data[2], data[1], negative[0]);
+    and (b_term_2, data[2], negative[1], data[0]);
+    and (b_term_3, data[3], data[1], data[0]);
+    and (b_term_4, data[3], data[2], negative[1]);
+    or  (b, b_term_1, b_term_2, b_term_3, b_term_4);
 
     // Segment C = ABC'D' + ACD + B'CD'
     and (c_term_1, data[3], data[2], negative[1], negative[0]);
