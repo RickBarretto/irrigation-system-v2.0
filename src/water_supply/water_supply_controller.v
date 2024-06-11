@@ -4,13 +4,17 @@
 //! 1. There are conflicting values coming from the sensors
 //! 2. The water tank is full, basically when the water level is high
 //!
-module water_supply_controller(
-    output valvule,
+//! The returning value is 4'b1111 when closed and 4'b1110 when opened.
+module water_supply_controller (
+    output [3:0] valvule,
 
     input water_sensors_conflicting,
     input high_water_level
 );
 
-    nor (valvule, water_sensors_conflicting, high_water_level);
+    and (valvule[3], high_water_level, high_water_level);
+    and (valvule[2], high_water_level, high_water_level);
+    and (valvule[1], high_water_level, high_water_level);
+    nor (valvule[0], water_sensors_conflicting, high_water_level);
 
 endmodule
