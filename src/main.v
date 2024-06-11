@@ -246,7 +246,9 @@ module main(
 	wire [3:0] data_0;
 	wire [3:0] data;
 
-	down_from_9 (data_2, 4'b0000, 4'b0000, reduced_clock_4);
+	down_from_3 (data_2, 4'b0000, 4'b0000, reduced_clock_4);
+	down_from_5 (data_1, 4'b0000, 4'b0000, reduced_clock_4);
+	down_from_9 (data_0, 4'b0000, 4'b0000, reduced_clock_4);
 
 	display_driver (
 		data,
@@ -255,8 +257,8 @@ module main(
 
 		4'b0000,
 		data_2,
-		4'b0010,
-		data_2
+		data_1,
+		data_0
 	);
 
 	display_decoder (
