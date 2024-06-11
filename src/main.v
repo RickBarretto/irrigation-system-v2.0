@@ -236,10 +236,10 @@ module main(
 		pulse
 	);
 
-	pipe (display_3, selected_display[3]);
-	pipe (display_2, selected_display[2]);
-	pipe (display_1, selected_display[1]);
-	pipe (display_0, selected_display[0]);
+	not (display_3, selected_display[3]);
+	not (display_2, selected_display[2]);
+	not (display_1, selected_display[1]);
+	not (display_0, selected_display[0]);
 
 	wire [3:0] data_2;
 	wire [3:0] data_1;
@@ -253,8 +253,8 @@ module main(
 
 		selected_display,
 
-		4'b1100,
-		4'b0001,
+		4'b0000,
+		data_2,
 		4'b0010,
 		data_2
 	);
