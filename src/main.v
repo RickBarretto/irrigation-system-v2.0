@@ -242,27 +242,18 @@ module main(
     water_supply_controller (water_supply_valvule, conflicting_values, high_water_level);
 	not (water_supply_valvule_indicator, water_supply_valvule[0]);
 
-
-	display_reseter (
-    	reseter,
-
-    	seconds_d,
-    	minutes_u,
-    	minutes_d
-	);
-
-	not (btn_released, pulse);
+	not (btn_released, pulse_2);
 	nor (
 		restart_from_0,
 		seconds_d[2], seconds_d[1], seconds_d[0],
 		minutes_u[3], minutes_u[2], minutes_u[1], minutes_u[0],
 		minutes_d[1], minutes_d[0]
 	);
-	or (start_couting, restart_from_0, btn_released, conflicting_values);
 
-	and (couting_clock, irrigation_on, reduced_clock_4);
+	not (irrigation_off, irrigation_on);
+	or (start_couting, restart_from_0, btn_released, conflicting_values, irrigation_off);
 
-	down_from_5 (seconds_d, trigger_minutes_u, 3'b000,  {start_couting, start_couting, start_couting},  couting_clock);
+	down_from_5 (seconds_d, trigger_minutes_u, 3'b000,  {start_couting, start_couting, start_couting},  reduced_clock_4);
 	down_from_9 (minutes_u, trigger_minutes_d, 4'b0000, {start_couting, start_couting, start_couting, start_couting}, trigger_minutes_u);
 	down_from_3 (minutes_d, 				   {start_couting, start_couting},   2'b00,   trigger_minutes_d);
 
