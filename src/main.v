@@ -15,7 +15,7 @@ module main(
 	output alarm,
 
 	// Array of LEDs Display
-	output water_supply_valvule,
+	output water_supply_valvule_indicator,
 	output counter_2,
 	output counter_1,
 	output counter_0,
@@ -229,6 +229,8 @@ module main(
 	wire [3:0] minutes_u;
 	wire [3:0] seconds_d;
 
+	wire [3:0] water_supply_valvule;
+
 	display_selector (selected_display, reduced_clock, pulse);
 
 	not (display_3, selected_display[3]);
@@ -237,6 +239,7 @@ module main(
 	not (display_0, selected_display[0]);
 
     water_supply_controller (water_supply_valvule, conflicting_values, high_water_level);
+	not (water_supply_valvule_indicator, water_supply_valvule[0]);
 
 	down_from_3 (minutes_d, 2'b00,   2'b00,   reduced_clock_4);
 	down_from_9 (minutes_u, 4'b0000, 4'b0000, reduced_clock_4);
@@ -252,7 +255,7 @@ module main(
 
 		selected_display,
 
-		water_supply_valvule,
+		data_3,
 		data_2,
 		data_1,
 		data_0

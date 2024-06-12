@@ -15,6 +15,6 @@ module water_supply_controller (
     always_on (valvule[3], high_water_level);
     always_on (valvule[2], high_water_level);
     always_on (valvule[1], high_water_level);
-    nor (valvule[0], water_sensors_conflicting, high_water_level);
+    or (valvule[0], water_sensors_conflicting, high_water_level);
 
 endmodule
