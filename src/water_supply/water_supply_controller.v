@@ -12,9 +12,9 @@ module water_supply_controller (
     input high_water_level
 );
 
-    and (valvule[3], high_water_level, high_water_level);
-    and (valvule[2], high_water_level, high_water_level);
-    and (valvule[1], high_water_level, high_water_level);
+    always_on (valvule[3], high_water_level);
+    always_on (valvule[2], high_water_level);
+    always_on (valvule[1], high_water_level);
     nor (valvule[0], water_sensors_conflicting, high_water_level);
 
 endmodule
