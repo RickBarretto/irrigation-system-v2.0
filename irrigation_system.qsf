@@ -23,9 +23,6 @@ set_global_assignment -name VERILOG_FILE "src/matrix/ring_counter/column_selecto
 set_global_assignment -name VERILOG_FILE "src/matrix/ring_counter/matrix_ring_decoder.v"
 set_global_assignment -name VERILOG_FILE "src/timer/display_decoder.v"
 set_global_assignment -name VERILOG_FILE "src/timer/display_driver.v"
-set_global_assignment -name VERILOG_FILE "src/timer/display_init_15.v"
-set_global_assignment -name VERILOG_FILE "src/timer/display_init_30.v"
-set_global_assignment -name VERILOG_FILE "src/timer/display_reseter.v"
 set_global_assignment -name VERILOG_FILE "src/timer/error_or_info.v"
 set_global_assignment -name VERILOG_FILE "src/timer/counters/display_selector.v"
 set_global_assignment -name VERILOG_FILE "src/timer/counters/down_from_3.v"
@@ -52,8 +49,8 @@ set_location_assignment PIN_38 -to high_water_level
 set_location_assignment PIN_40 -to mid_water_level
 set_location_assignment PIN_42 -to low_water_level
 set_location_assignment PIN_35 -to selector
-set_location_assignment PIN_52 -to pulse_2
-set_location_assignment PIN_50 -to pulse_1
+set_location_assignment PIN_52 -to pulse_3
+set_location_assignment PIN_50 -to pulse_2
 set_location_assignment PIN_12 -to clock
 
 # Output Setting

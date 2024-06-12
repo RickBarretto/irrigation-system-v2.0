@@ -34,8 +34,8 @@ low_water_level=42  # CH0
 selector=35 # CH7
 
 # Button
-pulse_2=52 # B0
-pulse_1=50 # B1
+pulse_3=52 # B0
+pulse_2=50 # B1
 
 # Clock
 clock=12
