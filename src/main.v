@@ -122,7 +122,7 @@ module main(
 
 
 	//-------------------------------------------
-	// Matrix Display related
+	// Matrix Display
 	//-------------------------------------------
 
 	wire [2:0] ring_counting;
@@ -213,37 +213,42 @@ module main(
 		synced_column_0
 	);
 
-	// Display
+	//-------------------------------------------
+	// 7-Segments Display
+	//-------------------------------------------
+
+	wire [3:0] displays_data;
 
 	wire [3:0] selected_display;
+    wire [3:0] data_3;
+    wire [3:0] data_2;
+    wire [3:0] data_1;
+    wire [3:0] data_0;
 
-	display_selector (
-		selected_display,
-		reduced_clock,
-		pulse
-	);
+    wire [3:0] minutes_d;
+	wire [3:0] minutes_u;
+	wire [3:0] seconds_d;
+
+	display_selector (selected_display, reduced_clock, pulse);
 
 	not (display_3, selected_display[3]);
 	not (display_2, selected_display[2]);
 	not (display_1, selected_display[1]);
 	not (display_0, selected_display[0]);
 
-	wire [3:0] data_2;
-	wire [3:0] data_1;
-	wire [3:0] data_0;
-	wire [3:0] data;
+    water_supply_controller (water_supply_valvule, conflicting_values, high_water_level);
 
-	// Output
-	water_supply_controller open_water_supply(
-		water_supply_valvule, conflicting_values, high_water_level
-	);
+	down_from_3 (minutes_d, 2'b00,   2'b00,   reduced_clock_4);
+	down_from_9 (minutes_u, 4'b0000, 4'b0000, reduced_clock_4);
+	down_from_5 (seconds_d, 3'b000,  3'b000,  reduced_clock_4);
 
-	down_from_3 (data_2, 2'b00, 2'b00, reduced_clock_4);
-	down_from_9 (data_1, 4'b0000, 4'b0000, reduced_clock_4);
-	down_from_5 (data_0, 3'b000, 3'b000, reduced_clock_4);
+    error_or_info (data_3, conflicting_values, 4'b1011, water_supply_valvule);
+    error_or_info (data_2, conflicting_values, 4'b1100, minutes_d);
+    error_or_info (data_1, conflicting_values, 4'b1100, minutes_u);
+    error_or_info (data_0, conflicting_values, 4'b1100, seconds_d);
 
 	display_driver (
-		data,
+		displays_data,
 
 		selected_display,
 
@@ -257,7 +262,7 @@ module main(
 		segment_a, segment_b, segment_c,
 		segment_d, segment_e, segment_f, segment_g,
 
-		data
+		displays_data
 	);
 
 endmodule
