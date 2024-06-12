@@ -241,9 +241,9 @@ module main(
     water_supply_controller (water_supply_valvule, conflicting_values, high_water_level);
 	not (water_supply_valvule_indicator, water_supply_valvule[0]);
 
+	down_from_5 (seconds_d, trigger_next, 3'b000,  3'b000,  reduced_clock_4);
+	down_from_9 (minutes_u, 4'b0000, 4'b0000, trigger_next);
 	down_from_3 (minutes_d, 2'b00,   2'b00,   reduced_clock_4);
-	down_from_9 (minutes_u, 4'b0000, 4'b0000, reduced_clock_4);
-	down_from_5 (seconds_d, 3'b000,  3'b000,  reduced_clock_4);
 
     error_or_info (data_3, conflicting_values, water_supply_valvule, 4'b1011);
     error_or_info (data_2, conflicting_values, minutes_d, 4'b1100);

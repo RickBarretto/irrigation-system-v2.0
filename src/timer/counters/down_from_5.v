@@ -1,5 +1,6 @@
 module down_from_5 (
     output [2:0] q_bus,
+    output trigger_next,
 
     input [2:0] set,
     input [2:0] reset,
@@ -39,5 +40,7 @@ module down_from_5 (
     flipflop_d (q_bus[2], clock, set[2], reset[2], d_bus[2]);
     flipflop_d (q_bus[1], clock, set[1], reset[1], d_bus[1]);
     flipflop_d (q_bus[0], clock, set[0], reset[0], d_bus[0]);
+
+    and when_5(trigger_next, q_bus[2], q_bus[0]);
 
 endmodule
