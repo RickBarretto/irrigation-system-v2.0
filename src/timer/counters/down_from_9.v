@@ -1,5 +1,6 @@
 module down_from_9 (
     output [3:0] q_bus,
+    output trigger_next,
 
     input [3:0] set,
     input [3:0] reset,
@@ -53,5 +54,7 @@ module down_from_9 (
     flipflop_d (q_bus[2], clock, set[2], reset[2], d_bus[2]);
     flipflop_d (q_bus[1], clock, set[1], reset[1], d_bus[1]);
     flipflop_d (q_bus[0], clock, set[0], reset[0], d_bus[0]);
+
+    and when_9(trigger_next, q_bus[3], q_bus[0]);
 
 endmodule
