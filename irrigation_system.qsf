@@ -53,7 +53,7 @@ set_location_assignment PIN_52 -to pulse
 set_location_assignment PIN_12 -to clock
 
 # Output Setting
-set_location_assignment PIN_54 -to water_supply_valvule
+set_location_assignment PIN_54 -to water_supply_valvule_indicator
 set_location_assignment PIN_57 -to counter_2
 set_location_assignment PIN_61 -to counter_1
 set_location_assignment PIN_67 -to counter_0

@@ -47,7 +47,7 @@ clock = 12
 [pin_planner.output]
 
 # Array of LEDs
-water_supply_valvule = 54   # LED0
+water_supply_valvule_indicator = 54 # LED0
 
 counter_2 = 57              # LED2
 counter_1 = 61              # LED3
