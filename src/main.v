@@ -242,20 +242,12 @@ module main(
     water_supply_controller (water_supply_valvule, conflicting_values, high_water_level);
 	not (water_supply_valvule_indicator, water_supply_valvule[0]);
 
-	not (btn_released, pulse_2);
-	nor (
-		restart_from_0,
-		seconds_d[2], seconds_d[1], seconds_d[0],
-		minutes_u[3], minutes_u[2], minutes_u[1], minutes_u[0],
-		minutes_d[1], minutes_d[0]
-	);
+	// TODO: use time_reseter
+	// TODO: insert only the setter, the resetter must be the reversed of it.
 
-	not (irrigation_off, irrigation_on);
-	or (start_couting, restart_from_0, btn_released, conflicting_values, irrigation_off);
-
-	down_from_5 (seconds_d, trigger_minutes_u, 3'b000,  {start_couting, start_couting, start_couting},  reduced_clock_4);
-	down_from_9 (minutes_u, trigger_minutes_d, 4'b0000, {start_couting, start_couting, start_couting, start_couting}, trigger_minutes_u);
-	down_from_3 (minutes_d, 				   {start_couting, start_couting},   2'b00,   trigger_minutes_d);
+	down_from_5 (seconds_d, trigger_minutes_u, seconds_d_setter, reduced_clock_4);
+	down_from_9 (minutes_u, trigger_minutes_d, minutes_u_setter, trigger_minutes_u);
+	down_from_3 (minutes_d, 				 , minutes_d_setter, trigger_minutes_d);
 
     error_or_info (data_3, conflicting_values, water_supply_valvule, 4'b1011);
     error_or_info (data_2, conflicting_values, minutes_d, 4'b1100);

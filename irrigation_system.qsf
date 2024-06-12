@@ -24,6 +24,7 @@ set_global_assignment -name VERILOG_FILE "src/matrix/ring_counter/matrix_ring_de
 set_global_assignment -name VERILOG_FILE "src/timer/display_decoder.v"
 set_global_assignment -name VERILOG_FILE "src/timer/display_driver.v"
 set_global_assignment -name VERILOG_FILE "src/timer/error_or_info.v"
+set_global_assignment -name VERILOG_FILE "src/timer/timer_reseter.v"
 set_global_assignment -name VERILOG_FILE "src/timer/counters/display_selector.v"
 set_global_assignment -name VERILOG_FILE "src/timer/counters/down_from_3.v"
 set_global_assignment -name VERILOG_FILE "src/timer/counters/down_from_5.v"
