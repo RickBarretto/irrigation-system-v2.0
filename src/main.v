@@ -242,10 +242,10 @@ module main(
 	down_from_9 (minutes_u, 4'b0000, 4'b0000, reduced_clock_4);
 	down_from_5 (seconds_d, 3'b000,  3'b000,  reduced_clock_4);
 
-    error_or_info (data_3, conflicting_values, 4'b1011, water_supply_valvule);
-    error_or_info (data_2, conflicting_values, 4'b1100, minutes_d);
-    error_or_info (data_1, conflicting_values, 4'b1100, minutes_u);
-    error_or_info (data_0, conflicting_values, 4'b1100, seconds_d);
+    error_or_info (data_3, conflicting_values, water_supply_valvule, 4'b1011);
+    error_or_info (data_2, conflicting_values, minutes_d, 4'b1100);
+    error_or_info (data_1, conflicting_values, minutes_u, 4'b1100);
+    error_or_info (data_0, conflicting_values, seconds_d, 4'b1101);
 
 	display_driver (
 		displays_data,
