@@ -37,11 +37,11 @@ module timer_reseter (
     //!    1      0 0 0 1   0 1 0 1  0 0 0 0
     //!    0      0 0 1 1   0 0 0 0  0 0 0 0
 
-    nand (minutes_d_preset[1], splinker_mode_on, reset); // Y = S'
+    pipe (minutes_d_preset[1], reset); // Y = S'
     pipe (minutes_d_preset[0], reset);             // Y = 1
 
-    and (minutes_u_preset[2], splinker_mode_on, reset); // Y = S
-    and (minutes_u_preset[0], splinker_mode_on, reset); // Y = S
+    pipe (minutes_u_preset[2], reset); // Y = S
+    pipe (minutes_u_preset[0], reset); // Y = S
 
 
 endmodule
