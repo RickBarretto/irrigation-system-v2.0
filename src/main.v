@@ -264,7 +264,7 @@ module main(
 
 	down_from_5 (seconds_d, trigger_minutes_u, seconds_d_setter, reduced_clock_4);
 	down_from_9 (minutes_u, trigger_minutes_d, minutes_u_setter, trigger_minutes_u);
-	down_from_3 (minutes_d, 				 , minutes_d_setter, trigger_minutes_d);
+	down_from_3 (minutes_d, minutes_d_setter, trigger_minutes_d);
 
     error_or_info (data_3, conflicting_values, water_supply_valvule, 4'b1011);
     error_or_info (data_2, conflicting_values, minutes_d, 4'b1100);

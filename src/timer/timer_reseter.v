@@ -9,9 +9,9 @@ module timer_reseter (
 
     input splinker_mode_on,
 
-    input [1:0] minutes_d
+    input [1:0] minutes_d,
     input [3:0] minutes_u,
-    input [2:0] seconds_d,
+    input [2:0] seconds_d
 );
 
     // Reset logic
@@ -26,7 +26,7 @@ module timer_reseter (
 		minutes_d[1], minutes_d[0]
     );
 
-    or (reset, irrigation_off, reached_zero, button_released);
+    or (reset, irrigation_off, reached_zero, button_released, conflicting_values);
 
 
     // splinker_mode_on = 15:00 <= 0001 0101 0000
@@ -37,11 +37,11 @@ module timer_reseter (
     //!    1      0 0 0 1   0 1 0 1  0 0 0 0
     //!    0      0 0 1 1   0 0 0 0  0 0 0 0
 
-    not (minutes_d_preset[1], splinker_mode_on); // Y = S'
-    always_on (minutes_d_preset[0]);             // Y = 1
+    nand (minutes_d_preset[1], splinker_mode_on, reset); // Y = S'
+    pipe (minutes_d_preset[0], reset);             // Y = 1
 
-    pipe (minutes_u_preset[2], splinker_mode_on); // Y = S
-    pipe (minutes_u_preset[0], splinker_mode_on); // Y = S
+    and (minutes_u_preset[2], splinker_mode_on, reset); // Y = S
+    and (minutes_u_preset[0], splinker_mode_on, reset); // Y = S
 
 
 endmodule
