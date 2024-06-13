@@ -1,8 +1,4 @@
 module timer_reseter (
-    output [1:0] minutes_d_preset,
-    output [3:0] minutes_u_preset,
-    output [2:0] seconds_d_preset,
-
     output reset,
 
     input forced_reset_from_button,
@@ -29,21 +25,5 @@ module timer_reseter (
     );
 
     or (reset, irrigation_off, reached_zero, button_released, conflicting_values);
-
-
-    // splinker_mode_on = 15:00 <= 0001 0101 0000
-    // dripper_mode_on  = 30:00 <= 0011 0000 0000
-
-    //! Splinker Minutes-D Minutes-U Seconds-D
-    //! -------- --------- --------- ---------
-    //!    1      0 0 0 1   0 1 0 1  0 0 0 0
-    //!    0      0 0 1 1   0 0 0 0  0 0 0 0
-
-    // pipe (minutes_d_preset[1], reset); // Y = S'
-    // pipe (minutes_d_preset[0], reset);             // Y = 1
-
-    // pipe (minutes_u_preset[2], reset); // Y = S
-    // pipe (minutes_u_preset[0], reset); // Y = S
-
 
 endmodule
