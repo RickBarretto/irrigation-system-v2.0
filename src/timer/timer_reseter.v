@@ -3,7 +3,6 @@ module timer_reseter (
     output [3:0] minutes_u_preset,
     output [2:0] seconds_d_preset,
 
-    input clock,
     input forced_reset_from_button,
     input irrigation_on,
     input conflicting_values,
