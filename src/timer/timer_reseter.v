@@ -4,6 +4,7 @@ module timer_reseter (
     input forced_reset_from_button,
     input irrigation_on,
     input conflicting_values,
+    input clock,
 
     input splinker_mode_on,
 
@@ -24,6 +25,11 @@ module timer_reseter (
 		minutes_d[1], minutes_d[0]
     );
 
-    or (reset, irrigation_off, reached_zero, button_released, conflicting_values);
+    always_on (on, splinker_mode_on);
+
+    flipflop_d (uninitialized, clock, , , on);
+    not (initialized, uninitialized);
+
+    or (reset, irrigation_off, reached_zero, button_released, conflicting_values, uninitialized);
 
 endmodule

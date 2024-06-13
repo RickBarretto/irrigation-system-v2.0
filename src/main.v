@@ -257,6 +257,7 @@ module main(
 		conflicting_values,
 
 		splinker_mode_on,
+		reduced_clock_4,
 
 		minutes_d,
 		minutes_u,
