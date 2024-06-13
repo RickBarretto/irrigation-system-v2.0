@@ -2,6 +2,7 @@ module down_from_3 (
     output [1:0] q_bus,
 
     input [1:0] set,
+    input [1:0] reset,
 
     input clock
 );
