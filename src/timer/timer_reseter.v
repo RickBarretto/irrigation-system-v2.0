@@ -1,6 +1,7 @@
 module timer_reseter (
     output reset,
 
+    input initial_pulse,
     input forced_reset_from_button,
     input irrigation_on,
     input conflicting_values,
@@ -25,11 +26,6 @@ module timer_reseter (
 		minutes_d[1], minutes_d[0]
     );
 
-    wire initialized;
-    
-    flipflop_d (uninitialized, clock, , , initialized);
-    not (initialized, uninitialized);
-
-    or (reset, irrigation_off, reached_zero, button_released, conflicting_values, uninitialized);
+    or (reset, irrigation_off, reached_zero, button_released, conflicting_values, initial_pulse);
 
 endmodule
