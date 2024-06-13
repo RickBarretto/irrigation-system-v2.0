@@ -25,9 +25,9 @@ module timer_reseter (
 		minutes_d[1], minutes_d[0]
     );
 
-    always_on (on, splinker_mode_on);
-
-    flipflop_d (uninitialized, clock, , , on);
+    wire initialized;
+    
+    flipflop_d (uninitialized, clock, , , initialized);
     not (initialized, uninitialized);
 
     or (reset, irrigation_off, reached_zero, button_released, conflicting_values, uninitialized);
