@@ -249,17 +249,18 @@ module main(
 	wire [3:0] seconds_d_resetter;
 	wire [3:0] minutes_d_resetter;
 
-	initializer(initial_pulse, reduced_clock_4);
+	level_to_pulse(splinker_pulse, splinker_mode_on, reduced_clock_4);
+	level_to_pulse(dripper_pulse, dripper_mode_on, reduced_clock_4);
+
+	or (irrigation_switch_pulse, splinker_pulse, dripper_pulse);
 
 	timer_reseter (
 		reset_count,
 
-		initial_pulse,
+		irrigation_switch_pulse,
 		pulse_2,
 		irrigation_on,
 		conflicting_values,
-
-		splinker_mode_on,
 
 		minutes_d,
 		minutes_u,

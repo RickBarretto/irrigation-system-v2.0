@@ -1,13 +1,10 @@
 module timer_reseter (
     output reset,
 
-    input initial_pulse,
+    input irrigation_switch_pulse,
     input forced_reset_from_button,
     input irrigation_on,
     input conflicting_values,
-    input clock,
-
-    input splinker_mode_on,
 
     input [1:0] minutes_d,
     input [3:0] minutes_u,
@@ -26,6 +23,6 @@ module timer_reseter (
 		minutes_d[1], minutes_d[0]
     );
 
-    or (reset, irrigation_off, reached_zero, button_released, conflicting_values, initial_pulse);
+    or (reset, irrigation_off, reached_zero, button_released, conflicting_values, irrigation_switch_pulse);
 
 endmodule
