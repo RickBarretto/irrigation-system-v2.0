@@ -242,8 +242,26 @@ module main(
     water_supply_controller (water_supply_valvule, conflicting_values, high_water_level);
 	not (water_supply_valvule_indicator, water_supply_valvule[0]);
 
-	// TODO: use time_reseter
 	// TODO: insert only the setter, the resetter must be the reversed of it.
+	wire [3:0] minutes_u_setter;
+	wire [3:0] seconds_d_setter;
+	wire [3:0] minutes_d_setter;
+
+	timer_reseter(
+		minutes_u_setter,
+		seconds_d_setter,
+		minutes_d_setter,
+
+		pulse_2,
+		irrigation_on,
+		conflicting_values,
+
+		splinker_mode_on,
+
+		minutes_d,
+		minutes_u,
+		seconds_d
+	);
 
 	down_from_5 (seconds_d, trigger_minutes_u, seconds_d_setter, reduced_clock_4);
 	down_from_9 (minutes_u, trigger_minutes_d, minutes_u_setter, trigger_minutes_u);
