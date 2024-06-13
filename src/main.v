@@ -267,9 +267,9 @@ module main(
 		minutes_d_setter,
 		minutes_u_setter,
 
-		seconds_d_resetter,
-		minutes_u_resetter,
 		minutes_d_resetter,
+		minutes_u_resetter,
+		seconds_d_resetter,
 
 		reset_count,
 		splinker_mode_on
