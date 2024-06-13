@@ -242,7 +242,6 @@ module main(
     water_supply_controller (water_supply_valvule, conflicting_values, high_water_level);
 	not (water_supply_valvule_indicator, water_supply_valvule[0]);
 
-	// TODO: insert only the setter, the resetter must be the reversed of it.
 	wire [3:0] minutes_u_setter;
 	wire [3:0] seconds_d_setter;
 	wire [3:0] minutes_d_setter;

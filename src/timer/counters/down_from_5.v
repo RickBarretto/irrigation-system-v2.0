@@ -3,7 +3,6 @@ module down_from_5 (
     output trigger_next,
 
     input [2:0] set,
-    input [2:0] reset,
 
     input clock
 );
@@ -19,10 +18,15 @@ module down_from_5 (
 
     wire [2:0] q_neg_bus;
     wire [2:0] d_bus;
+    wire [2:0] reset;
 
     not(q_neg_bus[2], q_bus[2]);
     not(q_neg_bus[1], q_bus[1]);
     not(q_neg_bus[0], q_bus[0]);
+
+    not(reset[2], set[2]);
+    not(reset[1], set[1]);
+    not(reset[0], set[0]);
 
     // d2 = q2'q1'q0' + q2q0
     nor (d1_term_1, q_bus[2], q_bus[1], q_bus[0]);
