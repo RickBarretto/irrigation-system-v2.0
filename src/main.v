@@ -246,11 +246,7 @@ module main(
 	wire [3:0] seconds_d_setter;
 	wire [3:0] minutes_d_setter;
 
-	timer_reseter(
-		minutes_u_setter,
-		seconds_d_setter,
-		minutes_d_setter,
-
+	timer_reseter (
 		reset_count,
 
 		pulse_2,
