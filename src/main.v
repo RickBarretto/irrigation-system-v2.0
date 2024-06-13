@@ -264,7 +264,7 @@ module main(
 		seconds_d
 	);
 
-	down_from_5 (seconds_d, trigger_minutes_u, , {reset_count, reset_count, reset_count}, reduced_clock_4);
+	down_from_5 (seconds_d, trigger_minutes_u, {reset_count, reset_count, reset_count}, reduced_clock_4);
 	down_from_9 (minutes_u, trigger_minutes_d, , {reset_count, reset_count, reset_count, reset_count}, trigger_minutes_u);
 	down_from_3 (minutes_d, {reset_count, reset_count}, , trigger_minutes_d);
 

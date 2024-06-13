@@ -28,7 +28,7 @@ module timer_reseter (
 		minutes_d[1], minutes_d[0]
     );
 
-    nor (reset, irrigation_off, reached_zero, button_released, conflicting_values);
+    or (reset, irrigation_off, reached_zero, button_released, conflicting_values);
 
 
     // splinker_mode_on = 15:00 <= 0001 0101 0000
