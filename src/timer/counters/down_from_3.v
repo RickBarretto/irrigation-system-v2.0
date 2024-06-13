@@ -15,10 +15,6 @@ module down_from_3 (
     //!   0     00      11   1  1
 
     wire [1:0] d_bus;
-    wire [1:0] reset;
-
-    not(reset[1], set[1]);
-    not(reset[0], set[0]);
 
     // d1 = q1'q0' + q1q0
     nor (d1_term_1, q_bus[1], q_bus[0]);

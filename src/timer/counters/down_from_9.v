@@ -23,7 +23,6 @@ module down_from_9 (
 
     wire [3:0] q_neg_bus;
     wire [3:0] d_bus;
-    wire [3:0] reset;
 
     not(q_neg_bus[3], q_bus[3]);
     not(q_neg_bus[2], q_bus[2]);

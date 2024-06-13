@@ -264,20 +264,25 @@ module main(
 	);
 
 	set_display_init(
-		minutes_u_setter,
 		minutes_d_setter,
+		minutes_u_setter,
 
-		minutes_u_resetter,
 		seconds_d_resetter,
+		minutes_u_resetter,
 		minutes_d_resetter,
 
 		reset_count,
 		splinker_mode_on
 	);
 
-	down_from_5 (seconds_d, trigger_minutes_u, ,                  seconds_d_resetter, reduced_clock_4);
-	down_from_9 (minutes_u, trigger_minutes_d, minutes_u_setter,  minutes_u_resetter, trigger_minutes_u);
-	down_from_3 (minutes_d, 				   minutes_d_setter,  minutes_d_resetter, trigger_minutes_d);
+	//
+	//						OUTPUT								       INPUT
+	//			 ----------------------------- -------------------------------------------------------
+	//			   Value       Trigger-Next	        Setter             Resetter         Next-State
+	//			 ---------- ------------------ ----------------- ------------------- -----------------
+	down_from_5 (seconds_d, trigger_minutes_u,                   seconds_d_resetter, reduced_clock_4);
+	down_from_9 (minutes_u, trigger_minutes_d, minutes_u_setter, minutes_u_resetter, trigger_minutes_u);
+	down_from_3 (minutes_d, 				   minutes_d_setter, minutes_d_resetter, trigger_minutes_d);
 
     error_or_info (data_3, conflicting_values, water_supply_valvule, 4'b1011);
     error_or_info (data_2, conflicting_values, minutes_d, 4'b1100);
