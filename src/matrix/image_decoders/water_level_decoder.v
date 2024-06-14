@@ -76,6 +76,6 @@ module water_level_decoder (
 
     and  (term_1, not_1, not_0);
     or   (col_0[2], term_1, error);  // Y = B1'B0' + E
-    pipe (col_0[1], col_0[1]);      // Y = B1'B0' + E
+    pipe (col_0[1], col_0[2]);      // Y = B1'B0' + E
 
 endmodule
