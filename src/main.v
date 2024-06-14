@@ -151,7 +151,8 @@ module main(
 	   	water_column_1,
 	   	water_column_0,
 
-		encoded_water
+		encoded_water,
+		conflicting_values
 	);
 
 	wire [6:0] irrigation_column_2;

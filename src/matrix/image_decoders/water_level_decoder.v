@@ -15,22 +15,23 @@ module water_level_decoder (
     //!  01   Low Water Level
     //!  10   Mid Water Level
     //!  11   High Water Level
-    input [1:0] data
+    input [1:0] data,
+    input error
 );
 
     //! Images
     //! ------
     //!
-    //!  Critical      Low        Mid        High
-    //!  ---------  ---------  ---------  ---------
-    //!  1 0 0 0 1  1 0 0 0 1  1 0 0 0 1  1 0 0 0 1
-    //!  - - - - -  - - - - -  - - - - -  - - - - -
+    //!  Critical      Low        Mid        High      Error
+    //!  ---------  ---------  ---------  ---------  ---------
+    //!  1 0 0 0 1  1 0 0 0 1  1 0 0 0 1  1 0 0 0 1  1 0 0 0 1
+    //!  - - - - -  - - - - -  - - - - -  - - - - -  - - - - -
     //!  *       *  *       *  *       *  * * * * *
     //!  *       *  *       *  *       *  * * * * *
     //!  *       *  *       *  * * * * *  * * * * *
     //!  *       *  *       *  * * * * *  * * * * *
     //!  *       *  * * * * *  * * * * *  * * * * *
-    //!  *       *  * * * * *  * * * * *  * * * * *
+    //!  * * * * *  * * * * *  * * * * *  * * * * *
     //!  * * * * *  * * * * *  * * * * *  * * * * *
 
 
@@ -53,27 +54,28 @@ module water_level_decoder (
     not (not_0, data[0]);
 
     // Column 1 is always off
-    pipe (col_1[6], off);   // Y = 0
-    pipe (col_1[5], off);   // Y = 0
-    pipe (col_1[4], off);   // Y = 0
-    pipe (col_1[3], off);   // Y = 0
-    pipe (col_1[2], off);   // Y = 0
-    pipe (col_1[1], off);   // Y = 0
-    pipe (col_1[0], off);   // Y = 0
+    pipe (col_1[6], error);   // Y = E
+    pipe (col_1[5], error);   // Y = E
+    pipe (col_1[4], error);   // Y = E
+    pipe (col_1[3], error);   // Y = E
+    pipe (col_1[2], error);   // Y = E
+    pipe (col_1[1], error);   // Y = E
+    pipe (col_1[0], error);   // Y = E
 
     // Bottom is always off
-    pipe (col_0[0], off);   // Y = 0
+    pipe (col_0[0], error);   // Y = E
 
 
     // Variable Dots
 
-    or   (col_0[6], not_1, not_0);  // Y = B1' + B0'
-    pipe (col_0[5], col_0[6]);      // Y = B1' + B0'
+    or   (col_0[6], not_1, not_0, error);  // Y = B1' + B0' + E
+    pipe (col_0[5], col_0[6]);      // Y = B1' + B0' + E
 
-    pipe (col_0[4], not_1);         // Y = B1'
-    pipe (col_0[3], col_0[4]);      // Y = B1'
+    or (col_0[4], not_1, error);         // Y = B1' + E
+    pipe (col_0[3], col_0[4]);      // Y = B1' + E
 
-    and  (col_0[2], not_1, not_0);  // Y = B1' * B0'
-    pipe (col_0[1], col_0[1]);      // Y = B1' * B0'
+    and  (term_1, not_1, not_0);
+    or   (col_0[2], term_1, error);  // Y = B1'B0' + E
+    pipe (col_0[1], col_0[1]);      // Y = B1'B0' + E
 
 endmodule
