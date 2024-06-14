@@ -163,7 +163,8 @@ module main(
 		irrigation_column_1,
 		irrigation_column_0,
 
-		splinker_mode_on
+		splinker_mode_on,
+		irrigation_on
 	);
 
 	// Matrix Sync
