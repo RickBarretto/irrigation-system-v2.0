@@ -313,4 +313,7 @@ module main(
 		displays_data
 	);
 
+	nor (display_1_not_selected, selected_display[1]);
+	or  (displays_point, display_1_not_selected, conflicting_values);
+
 endmodule
