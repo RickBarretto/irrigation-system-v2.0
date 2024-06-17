@@ -281,12 +281,39 @@ module main(
 		splinker_mode_on
 	);
 
+	// When Reset, or when 0 and clock
 	//
+	//	        INPUT		    OUTPUT
+	//  --------------------  ----------
+	//	Recount  Not 0 Clock  Next State
+	//  ------- ------ -----  ----------
+	//     0      0      0        0
+	//     0      0      1        0
+	//     0      1      0        0
+	//     0      1      1        1
+	//     1      0      0        1
+	//     1      0      1        1
+	//     1      1      0        1
+	//     1      1      1        1
+	//
+	//    Y = Number * Clock + Recount
+
+	or (
+        not_zero,
+		seconds_d[2], seconds_d[1], seconds_d[0],
+		minutes_u[3], minutes_u[2], minutes_u[1], minutes_u[0],
+		minutes_d[1], minutes_d[0]
+    );
+
+	and (displays_clock_term_1, not_zero, reduced_clock_4);
+	or  (counters_clock, displays_clock_term_1);
+
+
 	//						OUTPUT								       INPUT
 	//			 ----------------------------- -------------------------------------------------------
 	//			   Value       Trigger-Next	        Setter             Resetter         Next-State
 	//			 ---------- ------------------ ----------------- ------------------- -----------------
-	down_from_5 (seconds_d, trigger_minutes_u,                   seconds_d_resetter, reduced_clock_4);
+	down_from_5 (seconds_d, trigger_minutes_u,                   seconds_d_resetter, counters_clock);
 	down_from_9 (minutes_u, trigger_minutes_d, minutes_u_setter, minutes_u_resetter, trigger_minutes_u);
 	down_from_3 (minutes_d, 				   minutes_d_setter, minutes_d_resetter, trigger_minutes_d);
 
