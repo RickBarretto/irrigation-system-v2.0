@@ -16,7 +16,6 @@ module timer_reseter (
     not (button_released, forced_reset_from_button);
     not (irrigation_off, irrigation_on);
 
-    or (other, irrigation_off, button_released, conflicting_values, irrigation_switch_pulse);
-
+    or (reset, irrigation_off, button_released, conflicting_values, irrigation_switch_pulse);
 
 endmodule
