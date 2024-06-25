@@ -85,7 +85,7 @@
 % ---
 % Informações de dados para CAPA e FOLHA DE ROSTO
 % ---
-\titulo{Problema 2: Rega Automatizada!}
+\titulo{Problema 2: ... Rega Automatizada (Melhorias)!}
 \autor{
     Cláudio Daniel Figueredo Peruna \thanks{danielperuna2012@gmail.com} 
     \and Paulo Gabriel da Rocha Costa Silva \thanks{paulogrcsilva@gmail.com}
@@ -171,12 +171,12 @@
 
 % resumo em português
 \begin{resumoumacoluna}
- Este relatório visa apresentar a metodologia e o desenvolvimento de um sistema automatizado de irrigação. O sistema foi projetado para otimizar o uso da água em plantações, buscando aprimorar a eficiência econômica em comparação aos métodos tradicionais de irrigação. Utilizando a linguagem de programação \textit{Verilog estrutural} e o \textit{software} \textit{Quartus}, o sistema foi implementado em uma placa \textit{CPLD MAX II}. Os resultados alcançados confirmaram o sucesso do projeto, demonstrando a viabilidade técnica e a eficácia operacional do sistema proposto. Além disso, o projeto contribuiu para a consolidação de conhecimentos teóricos relacionados a Sistemas Digitais, corroborando com a literatura existente e indicando caminhos para futuras pesquisas e aplicações práticas no campo da automação agrícola.
+Este estudo apresenta a evolução de um sistema automatizado de irrigação, inicialmente proposto, com a implementação de um circuito aprimorado. O novo design incorpora funcionalidades avançadas, incluindo um cronômetro e uma interface de visualização aprimorada das informações do sistema. As ferramentas de desenvolvimento \textit{Verilog} e \textit{Quartus} foram empregadas para a implementação na placa \textit{CPLD MAX II}. Os resultados demonstram a eficácia do uso de recursos como contadores sincronos e assincronos, \textit{flip-flops}, \textit{latches} e manipulação de \textit{clocks}, evidenciando o potencial do sistema para otimizar processos de irrigação.
  
  \vspace{\onelineskip}
  
  \noindent
- \textbf{Palavras-chaves}: irrigação automatizada. circuitos digitais. verilog. quartus. CPLD MAX II. eficiência hídrica. sistemas digitais. tecnologia agrícola.
+ \textbf{Palavras-chaves}: irrigação automatizada. circuitos digitais. verilog. quartus. CPLD MAX II. sistemas digitais. contadores síncronos. contadores assíncronos. flip-flops. latches. manipulação de clocks. automação agrícola. otimização de processos.
 \end{resumoumacoluna}
 
 % ]  				% FIM DE ARTIGO EM DUAS COLUNAS
@@ -192,11 +192,9 @@
 % ----------------------------------------------------------
 \section*{Introdução}
 
-A eficiência agrícola é um tema de suma importância para a sociedade e estudado há anos. Um exemplo é a Revolução Verde, que foi uma proposta iniciada na década de 30 buscando revolucionar o sistema agrícola internacional ao aprimorar sua produção, segundo \cite{zambenedetti_2021_revoluo}. 
-Para atingir seus objetivos, essa proposta visava o uso de técnicas modernas como o uso de organismos geneticamente melhorados, uso de mecanização, como também o uso de irrigação automatizada.
+A evolução tecnológica é um processo contínuo e inexorável. Como observa Bill Gates, "Nós sempre superestimamos as mudanças que ocorrerão nos próximos dois anos e subestimamos as mudanças que ocorrerão na próxima década. Não se deixe levar pela inércia. Este é um momento emocionante"  \cite{gates1995}. Este dinamismo exige que inovações sejam constantemente atualizadas e melhoradas para acompanhar as demandas emergentes. No contexto da agricultura, a eficiência e a sustentabilidade dos processos são fundamentais. 
 
-Pensando nestes benefícios, este projeto tem como objetivo de desenvolver um protótipo de sistema automático de irrigação. Para tal, foi utilizado o \textit{Kit CPLD-LEDS}, que utiliza a placa \textit{CPLD MAX II} para então simular o ambiente e interface de interação com o usuário. 
-Os interruptores foram usados para simular os sensores de níveis da caixa d’água e de ambiente, assim como a escolha da opção do menu pelo usuário, o barramento de LEDs para simular a abertura das válvulas, o LED RGB para o alarme, e o \textit{display} de sete segmentos, para o painel de informações.
+Com isso em mente, este estudo visa aprimorar um sistema automatizado de irrigação previamente desenvolvido, incorporando um novo circuito com funcionalidades avançadas. Este avanço foi implementado utilizando as ferramentas de desenvolvimento \textit{Verilog} e \textit{Quartus} na plataforma \textit{CPLD MAX II}. As melhorias incluem a adição de um cronômetro e uma interface de visualização mais sofisticada, com as imagens sendo mostradas na matriz de LEDs da placa, e não mais no seu \textit{display} de 7 segmentos. Dessa forma, esses enriquecimentos do projeto atendem melhor às necessidades dos usuários e otimizam o uso dos recursos hídricos.
 
 
 % ----------------------------------------------------------
@@ -205,568 +203,870 @@ Os interruptores foram usados para simular os sensores de níveis da caixa d’�
 
 \section{Metodologia}
 
+A metodologia adotada seguiu uma sequência de etapas bem definidas, conforme descrito a seguir:
+
+\begin{enumerate}
+\item Definição da Visão Geral e Diagramação de Alto Nível do Projeto: Inicialmente, elaborou-se uma visão abrangente do projeto, seguida pela criação de diagramas de alto nível, os quais delinearam as interações e os principais componentes do sistema.
+
+\item Listagem dos Módulos Necessários: Posteriormente, realizou-se a identificação e a especificação detalhada dos módulos funcionais para a consecução do projeto.
+
+\item Escolha das Ferramentas Utilizadas: Em seguida, selecionaram-se as ferramentas mais adequadas para o desenvolvimento do projeto, com base em critérios técnicos específicos.
+
+\item Implementação da Projeção Utilizando \textit{Verilog}: Por fim, procedeu-se à implementação do projeto, empregando a linguagem de descrição de hardware \textit{Verilog}, assegurando a conformidade com as especificações estabelecidas nas etapas anteriores.
+    
+\end{enumerate}
+
+
+
 \subsection{Ferramentas Utilizadas}
 
-O \textit{Kit de Desenvolvimento LEDS-CPLD} fora utilizada para a realização do projeto, a placa utilizada é a \textit{EPM240T100C5N} da família \textit{MAX II}; a linguagem de descrição de hardware utilizada fora o \textit{Verilog HDL}, e seu compilador, o \textit{Quartus II} da \textit{Intel} nas versões 18 e 20; 
-Já como editor de código, fora utilizado o próprio \textit{Quartus II} e, em certos momentos, o \textit{Visual Studio Code} da \textit{Microsoft}. 
-\textit{Python 3.10} foi utilizado como ferramenta auxiliar para gerar os arquivos de configuração e limpar o projeto após compilado, assim como o \textit{Git} fora usado para versionamento do código, e o \textit{Github} como repositório remoto.
+No contexto do presente estudo, as metodologias e ferramentas empregadas são uma continuação das práticas adotadas no projeto anterior, com a intenção de aprimorar a eficiência e a integração do desenvolvimento de sistemas digitais. A placa de desenvolvimento eletrônica escolhida para este projeto é a \textit{EPM240T100C5N}, pertencente à família \textit{MAX II}, que foi selecionada por suas capacidades robustas e compatibilidade com o ambiente de desenvolvimento.
 
-\subsubsection{Visão Geral}
+O código que descreve o circuito foi escrito utilizando o \textit{Verilog HDL}, uma linguagem de descrição de hardware amplamente utilizada na indústria, conhecida por sua capacidade de modelar circuitos digitais. A compilação do código foi realizada no \textit{Quartus II}, uma ferramenta de design de circuitos integrados da \textit{Intel}, versão 20, que oferece uma plataforma poderosa para a implementação de designs em \textit{hardware}.
 
-Para facilitar a compreensão da arquitetura do sistema proposto, recomenda-se a análise do fluxograma geral do circuito, apresentado na Figura \ref{fig:overview}.
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.75\linewidth]{full-view.png}
-    \caption{Visão Geral do projeto}
-    \label{fig:overview}
-\end{figure}
+Para o desenvolvimento da descrição de hardware, foi preferido o uso da IDE do \textit{Visual Studio Code}, uma ferramenta moderna e flexível que proporciona uma experiência de desenvolvimento integrado otimizada. Mesmo que o código seja compilado no \textit{Quartus II}, o \textit{Visual Studio Code} foi utilizado para sua escrita e edição, aproveitando-se das funcionalidades avançadas da IDE para melhorar a produtividade do desenvolvedor.
 
-Através deste, é possível identificar a estratégia de modularização adotada, que consiste na verificação sistemática dos níveis da caixa d’água (alto, médio e baixo). Esta verificação é realizada por meio de um algoritmo de detecção de conflitos entre os sensores, assegurando que as combinações de sinais sejam coerentes e livres de erros, antes de prosseguir para a etapa de codificação dos dados.
-
-A saída do processo de verificação é direcionada para um controlador responsável pela operação da válvula de enchimento da caixa d’água, que também é influenciado pelo sensor de nível alto. Paralelamente, o seletor de irrigação processa entradas provenientes do sensor de nível médio da água, além dos sensores de temperatura e umidade do ar, para determinar as condições adequadas de irrigação.
-
-O sistema de alarme é acionado com base no nível médio da água e nos resultados da verificação de conflitos, alertando sobre quaisquer discrepâncias ou condições críticas. Finalmente, o decodificador do display de 7 segmentos interpreta os sinais do seletor para exibir informações pertinentes ao tipo de irrigação empregado ou ao nível atual da caixa d’água.
-
-\subsubsection{Imagens da Placa}
-
-A interface do usuário do sistema é projetada para exibir uma variedade de informações através de um \textit{display} de 7 segmentos, um LED RGB e uma barra de LEDs. Esses componentes fornecem uma representação visual das condições operacionais do sistema, conforme descrito na Seção 1.3 (Pinagem).
-
-Quando o \textit{display} de 7 segmentos é configurado para indicar o nível da água na caixa, quatro estados distintos podem ser representados: nível crítico (Figura \ref{fig:critic}), nível baixo (Figura \ref{fig:low}), nível médio (Figura \ref{fig:mid}) e nível alto (Figura \ref{fig:high}). Cada estado é associado a uma imagem específica no \textit{display}, permitindo uma identificação rápida e intuitiva do status atual da caixa d’água.
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.5\linewidth]{display-critic.png}
-    \caption{Nível crítico da caixa d'água}
-    \label{fig:critic}
-\end{figure}
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.5\linewidth]{low.png}
-    \caption{Nível baixo da caixa d'água}
-    \label{fig:low}
-\end{figure}
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.5\linewidth]{mid.png}
-    \caption{Nível médio da caixa d'água}
-    \label{fig:mid}
-\end{figure}
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.5\linewidth]{high.png}
-    \caption{Nível alto da caixa d'água}
-    \label{fig:high}
-\end{figure}
-
-Além disso, o seletor do \textit{display} pode ser ajustado para mostrar o modo de irrigação em operação. Neste caso, três imagens são possíveis: a representação da irrigação por aspersão (Figura \ref{fig:asp}), a irrigação por gotejamento, e uma indicação do estado do alarme (ativo, na Figura \ref{fig:got-atv} ou inativo, na Figura \ref{fig:got-inatv}), que é determinado pela análise dos sinais dos sensores. É importante notar que os modos de irrigação são visualizados não apenas no \textit{display} de 7 segmentos, mas também na barra de LEDs, proporcionando uma dupla confirmação do tipo de irrigação selecionado.
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.5\linewidth]{aspersao.png}
-    \caption{Bomba de Aspersão ativada}
-    \label{fig:asp}
-\end{figure}
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.5\linewidth]{got-atv.png}
-    \caption{Válvula de Gotejamento ativada, com Alarme ligado}
-    \label{fig:got-atv}
-\end{figure}
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.5\linewidth]{got-inatv.png}
-    \caption{Válvula de Gotejamento ativada, com Alarme desligado}
-    \label{fig:got-inatv}
-\end{figure}
+A transferência e atualização do repositório contendo o código foram facilitadas pelo uso do \textit{Git} e do serviço \textit{GitHub}, que permitem uma colaboração eficiente entre diferentes máquinas, garantindo a integridade e a continuidade do projeto.
 
 \subsection{Escrita do código e Documentação}
 
-Na implementação do código-fonte, adotou-se uma metodologia que prioriza a legibilidade e a manutenção do software. Utilizaram-se variáveis semânticas para garantir clareza e autoexplicabilidade, minimizando assim a necessidade de comentários adicionais. A redução de ruído foi alcançada por meio da eliminação de elementos supérfluos e da utilização de nomes para instâncias apenas quando estritamente necessário, seguindo as melhores práticas de codificação.
+Para garantir que o código atingisse o máximo nível de legibilidade e intuitividade, adotou-se o uso de variáveis autoexplicativas e de nomenclatura clara. Além disso, incorporaram-se comentários detalhados em todas as seções do código, o que não apenas facilita o entendimento dos processos implementados, mas também elimina ambiguidade. Partes do código consideradas redundantes foram removidas. Adicionalmente, foram inseridas tabelas e informações relevantes na forma de comentários, proporcionando um referencial imediato que enriquece a compreensão contextual do código por parte dos leitores. Essa abordagem sistemática visa a otimização do código, assegurando que este seja compreensível e acessível mesmo para aqueles que não participaram diretamente de sua elaboração.
 
-Em relação à documentação, cada módulo foi meticulosamente documentado, descrevendo suas funcionalidades e o papel que desempenham dentro da arquitetura do sistema. Esta documentação detalhada é fundamental para a compreensão do projeto como um todo, facilitando a integração de novos colaboradores e a expansão futura do sistema.
+
+\subsection{Visão Geral}
+
+Para uma compreensão aprofundada do funcionamento do circuito projetado, recomenda-se a análise do fluxograma ilustrado na Figura \ref{fig:fluxograma}.
+
+\begin{figure} [H]
+    \centering
+    \includegraphics[width=0.75\linewidth]{fluxograma.png}
+    \caption{Fluxograma geral do projeto}
+    \label{fig:fluxograma}
+\end{figure}
+
+Os sensores empregados englobam tanto os sensores da caixa d'água quanto os sensores de ambiente. Os sensores da caixa d'água são categorizados em quatro níveis: crítico, baixo, médio e alto. Os sensores ambientais medem a umidade do solo, a umidade do ar e a temperatura, com a lógica inversa aplicada à temperatura. 
+
+Os sensores da caixa d'água fornecem dados para o codificador, que converte esses dados em valores binários de dois bits, categorizando-os como crítico, baixo, médio ou alto. Além disso, esses dados são encaminhados para o sistema de erro, que verifica a regularidade entre os sensores. Caso seja detectada uma irregularidade, o sistema emite um sinal que altera a imagem do cronômetro e o estado da válvula para uma mensagem de erro exibida no \textit{display}.
+
+A codificação gerada é transmitida ao decodificador da caixa d'água, cuja função é exibir a imagem correspondente na matriz de LEDs. Para monitorar o estado da válvula da caixa d'água, o sensor de nível alto, junto com o sistema de erro, é enviado a um módulo responsável por definir a exibição de "A" (aberto) ou "F" (fechado) no cronômetro, especificamente no \textit{display} mais à esquerda do multiplexador. 
+
+O multiplexador, que atua como \textit{driver} do \textit{display}, seleciona qual dos quatro \textit{displays} será ativado em cada instante, com o \textit{display} mais à esquerda exibindo a informação mencionada.
+
+No sistema de irrigação, as chaves de irrigação são processadas por um codificador que determina o modo de irrigação: aspersão ou gotejamento. Este codificador de um bit também avalia se as condições são adequadas para a irrigação, considerando o nível da caixa d'água para determinar se está em estado crítico. O codificador envia o modo de irrigação e a confirmação da irrigação ao decodificador de irrigação, que então gera a imagem correspondente na matriz de LEDs.
+
+Para a intercalação das imagens, utiliza-se um \textit{clock} integrado à placa. Inicialmente, este \textit{clock} é enviado a um divisor de \textit{clock}, responsável por intercalar as colunas, tanto do \textit{display} quanto da matriz de LEDs, em uma frequência maior. Este \textit{clock}, então, alimenta os contadores: um \textit{ring counter }de 3 bits e um de 4 bits, sendo o de 4 bits designado para o \textit{display} e o de 3 bits para a matriz. A escolha de 3 bits para a matriz se deve ao fato de que a imagem é espelhada, exibindo duas colunas por vez, com a coluna central sendo exibida individualmente, resultando em uma exibição dual.
+
+Posteriormente, o sinal do \textit{clock} passa por um segundo divisor de \textit{clock}, que regula a alternância entre as imagens da matriz de LEDs, dividindo o tempo igualmente entre a representação da irrigação e da caixa d'água. 
+
+A matriz utiliza dois decodificadores, um para a caixa d'água e outro para a irrigação, que intercalam as imagens conforme o \textit{clock} mais lento. A seguir, o sinal é direcionado para o seletor, que alimenta o drive da matriz. Este drive seleciona qual coluna será exibida em cada ciclo. O contador de três bits, após passar por um decodificador que realiza a redistribuição de três entradas para cinco saídas, organiza as colunas da seguinte maneira: a saída do contador dois controla as colunas quatro e zero, a saída do contador um controla as colunas três e um, e a saída do contador zero controla a coluna central, coluna dois. Esta redistribuição é então alimentada ao drive da matriz, que ativa e desativa as colunas conforme necessário. Para o funcionamento correto, a coluna deve estar desativada enquanto a linha está ativada, permitindo uma seleção precisa. 
+
+No sistema de decodificação, a lógica é configurar quais linhas de cada coluna serão desativadas, uma vez que o padrão é estar ativado. Assim, a operação principal é a desativação seletiva das linhas.
+
 
 \subsection{Módulos}
+Para a concretização do circuito conforme delineado no planejamento inicial, foram concebidos diversos módulos especializados, cada um com a finalidade de atender a objetivos técnicos específicos para o funcionamento do sistema. Esses módulos abarcam uma gama diversificada de funcionalidades. São eles: Módulos para Abastecimento de Água (\textit{Water Supply}); Módulos Utilitários (\textit{Utils}); Módulos para Matriz de LEDs (\textit{Matrix}); Módulos para Temporização (\textit{Timer}); e Módulos para Irrigação (\textit{Irrigation}).
 
-Optou-se pela modularização do problema em questão, visando uma série de benefícios intrínsecos a essa abordagem. A divisão em módulos distintos permite não apenas uma manutenção mais eficiente, mas também facilita a visualização e otimização do projeto como um todo. Os módulos propostos são delineados a seguir, cada um com suas respectivas funções e interfaces claramente definidas, permitindo assim uma integração coesa e uma colaboração interdisciplinar efetiva. 
+Os módulos para a irrigação, ou tipo de rega, gerenciam os ciclos de irrigação, controlando a ativação e desativação dos mecanismos de rega conforme os requisitos de umidade do ar e do solo, além da temperatura. Estes não foram alterados na atual melhoria do projeto. Assim, não precisarão ser mencionados novamente.
 
-\subsubsection{Alarme}
-
-O módulo de alarme, \textit{alarm.v}, é responsável por indicar baixo nível de água ou conflitos nos sensores da caixa d’água. 
-Ele possui duas entradas: uma que indica se o nível de água está abaixo do nível médio, \textit{mid\_water\_level}, e outra que indica se há valores conflitantes dos sensores da caixa d'água, \textit{conflicting\_values}. 
-A saída do módulo, representado por \textit{alarm\_on}, é um sinal que controla o estado do alarme. 
-
-Sua representação em tabela verdade pode ser visto na Tabela \ref{tab:alarm}, assim como sua simplificação usando produto das somas pode ser visto na Equação \eqref{math:alarm} e seu esquema pode ser visto na Figura \ref{fig:alarm}.
-
-\begin{table}[h]
-\centering
-\begin{tabular}{|c|c|c|c|}
-\hline
-\textit{mid\_water\_level} & \textit{conflicting\_values} & \textit{} & \textit{alarm\_on} \\ \hline
-0 & 0 &  & 1 \\ \hline
-0 & 1 &  & 1 \\ \hline
-1 & 0 &  & 0 \\ \hline
-1 & 1 &  & 1 \\ \hline
-\end{tabular}
-\caption{Tabela verdade do módulo \textit{alarm.v}}
-\label{tab:alarm}
-\end{table}
-
-\begin{equation}
-alarm\_on = mid\_water\_level' + conflicting\_values
-\label{math:alarm}
-\end{equation}
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.75\linewidth]{alarm.png}
-    \caption{Esquema do alarme}
-    \label{fig:alarm}
-\end{figure}
-
-\subsubsection{Verificadores de conflitos nos sensores da caixa d’água}
-
-O módulo \textit{water\_sensors\_checker.v} tem como finalidade verificar se existem valores conflitantes entre os sensores de nível de água do sistema. 
-Esta verificação é crucial para garantir a precisão das leituras dos níveis de água e evitar operações inconsistentes do sistema de irrigação.
-
-O módulo possui três entradas correspondentes aos diferentes sensores de nível de água: baixo (\textit{low\_level}), médio (\textit{mid\_level}) e alto (\textit{high\_level}). 
-Sua saída é o sinal \textit{conflict}, que indica se há conflito entre os valores dos sensores.
-
-Logo abaixo estão a tabela verdade em Tabela \ref{tab:sensor-checker} do módulo, assim como sua simplificação usando soma de produtos na Equação \eqref{math:checker}. Para fins didáticos, a equação utiliza outros nomes mais simples para se referir às entradas. Por tanto, \textit{A} é equivalente a \textit{high\_level}, \textit{B} a \textit{mid\_level}, \textit{C} a \textit{low\_level} e \textit{Z} a \textit{conflict}. Seu esquema pode ser visto na Figura \ref{fig:error}.
+No total, foram desenvolvidos 29 módulos. Para evitar a extensão excessiva do presente relatório, alguns módulos serão abordados de forma mais concisa, especialmente aqueles já discutidos no projeto anterior. Portanto, não serão repetidas as tabelas verdade e simplificações para esses módulos. O foco será nos módulos recém-criados e nos que sofreram modificações.
 
 
-\begin{table}[h]
-\centering
-\begin{tabular}{|c|c|c|l|c|}
-\hline
-\textit{high\_level} & \multicolumn{1}{l|}{\textit{mid\_level}} & \textit{low\_level} &  & \textit{conflict} \\ \hline
-0 & 0 & 0 &  & 0 \\ \hline
-0 & 0 & 1 &  & 1 \\ \hline
-0 & 1 & 0 &  & 1 \\ \hline
-0 & 1 & 1 &  & 0 \\ \hline
-1 & 0 & 0 &  & 1 \\ \hline
-1 & 0 & 1 &  & 1 \\ \hline
-1 & 1 & 0 &  & 1 \\ \hline
-1 & 1 & 1 &  & 0 \\ \hline
-\end{tabular}
-\caption{Tabela verdade do módulo water\_sensors\_checker.v}
-\label{tab:sensor-checker}
-\end{table}
+
+% -- 
+
+\subsubsection{Water Supply, ou Válvula de abastecimento de água}
+
+Responsáveis pelo controle e gerenciamento do nível de água. Os módulos \textit{water\_encoder} e o \textit{water\_sensors\_checker} não tiveram sua lógica alterada. A única mudança no \textit{water\_encoder} é o uso de barramento de \textit{2 bits} em sua saída de dados, o que facilita seu uso durante o código principal.
+
+\begin{itemize}
+    \item \textit{water\_supply\_controller}
+
+O módulo \textit{water\_supply\_controller} controla a válvula de suprimento de água com base em duas condições: presença de valores conflitantes dos sensores e nível alto de água no tanque.
+
+Quando a válvula deve ser fechada (indicada por 4'b1111):
+
+\begin{enumerate}
+    \item Há valores conflitantes provenientes dos sensores (\textit{water\_sensors\_conflicting}).
+
+    \item O nível da água no tanque está alto (\textit{high\_water\_level}).
+\end{enumerate}
+
+
+A válvula é aberta (indicada por 4'b1110) somente quando não há conflitos nos sensores e o nível da água não está alto.
+
+A lógica de controle funciona da seguinte forma:
+
+\begin{itemize}
+    \item Os três bits superiores de \textit{valvule} são sempre ativados (1) se o nível da água estiver alto.
+    \item O bit menos significativo de \textit{valvule} é ativado (1) se houver valores conflitantes dos sensores ou se o nível da água estiver alto. Caso contrário, ele é desativado (0).
+\end{itemize}
+
+Isso garante que a válvula esteja fechada em condições críticas e aberta quando seguro.
 
 \begin{equation}
 \begin{split}
-Z &= A'BC' + AB'C' + AB'C + ABC' \\
-Z &= A'BC' + A(B'C' + B'C)  + ABC'\\
-Z &= A'BC' + AB' + ABC' \\
-Z &= C'(A'B + AB) + AB' \\
-Z &= C'B + AB' \equiv A'B + B'C
-\label{math:checker}
+valvule[0] &= water\_sensors\_conflicting + high\_water\_level
+\label{math:valvule}
 \end{split}
 \end{equation}
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.75\linewidth]{error.png}
-    \caption{Esquema da verificação de conflitos entre os sensores da caixa d'água}
-    \label{fig:error}
-\end{figure}
-
-
-
-\subsubsection{Controlador do suprimento da caixa d’água}
-
-O módulo \textit{water\_supply\_controller} é responsável por controlar a válvula de fornecimento de água em um sistema. 
-Sua função é garantir que a válvula permaneça fechada em determinadas condições específicas, conforme as seguintes regras:
-
-A válvula deve permanecer fechada se houver valores conflitantes provenientes dos sensores de nível de água. 
-Isso é necessário para evitar operações inconsistentes do sistema de irrigação que podem resultar de leituras imprecisas dos sensores.
-
-A válvula deve permanecer fechada quando o reservatório de água estiver cheio, ou seja, quando o nível de água estiver alto.
-Isso é essencial para evitar o desperdício de água e possíveis danos causados por transbordamento.
-
-Sua representação na tabela verdade pode ser vista em \textit{Tabela \ref{tab:water-supply}}, e sua simplificação por meio de soma de produtos pode ser encontrada na \textit{Equação} \eqref{math:supply}, no código em \textit{Verilog}, porém, a lógica é implementada por meio de uma porta \textit{NOR}, isso se deve à simplificação por meio do Teorema de DeMorgan como demonstrado por \cite{floyd_2007_lgebra}, e seu esquema na Figura \ref{fig:ve}.
-
-\begin{table}[h]
-\centering
-\begin{tabular}{|c|c|c|c|}
-\hline
-\textit{water\_sensors\_conflicting,} & \multicolumn{1}{l|}{\textit{high\_water\_level}} & \textit{} & \textit{valvule} \\ \hline
-0 & 0 &  & 1 \\ \hline
-0 & 1 &  & 0 \\ \hline
-1 & 0 &  & 0 \\ \hline
-1 & 1 &  & 0 \\ \hline
-\end{tabular}
-\caption{Tabela verdade do módulo \textit{water\_supply\_controller.v}}
-\label{tab:water-supply}
-\end{table}
-
-
-\begin{equation}
-\begin{split}
-valvule &= water\_sensors\_conflicting' \times high\_water\_level'  \\
-& \text{Aplicando Teorema de DeMorgan} \\
-valvule &= (water\_sensors\_conflicting + high\_water\_level)'
-\label{math:supply}
-\end{split}
-\end{equation}
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.75\linewidth]{Ve.png}
-    \caption{Esquema da abertura entrada de água}
-    \label{fig:ve}
-\end{figure}
-
-\subsubsection{Codificador do nível da caixa d’água}
-
-O módulo \textit{Verilog} denominado \textit{water\_encoder} tem como função codificar o nível de água em um sistema, atribuindo bits a diferentes estados de nível de água. 
-Essa codificação é essencial para o funcionamento do decodificador, possibilitando a representação adequada do nível de água em dispositivos de exibição, como demonstrado por \cite{floyd_2007_funes}.
-
-O módulo possui três entradas correspondentes aos diferentes estados de nível de água: alto (\textit{high}), médio (\textit{mid}) e baixo (\textit{low}). As saídas do módulo consistem em dois bits codificados (\textit{encoded\_water\_Bit0} e \textit{encoded\_water\_Bit1}), que representam os diferentes níveis de água de acordo com a codificação especificada.
-
-O representação da tabela verdade do módulo pode ser encontrada na Tabela \ref{tab:water-level-encoder}, e sua simplificação na Equação \eqref{math:water-level-encoder-0} e \eqref{math:water-level-encoder-1}, usando o método de soma de produtos.
-
-\begin{table}[h]
-\centering
-\begin{tabular}{|c|c|c|c|c|c|}
-\hline
-high & mid & low &  & bit0 & bit1 \\ \hline
-0    & 0   & 0   &  & 0    & 0    \\ \hline
-0    & 0   & 1   &  & 0    & 1    \\ \hline
-0    & 1   & 0   &  & 0    & 0    \\ \hline
-0    & 1   & 1   &  & 1    & 0    \\ \hline
-1    & 0   & 0   &  & 0    & 0    \\ \hline
-1    & 0   & 1   &  & 0    & 0    \\ \hline
-1    & 1   & 0   &  & 0    & 0    \\ \hline
-1    & 1   & 1   &  & 1    & 1    \\ \hline
-\end{tabular}
-\caption{Tabela verdade do módulo water\_encoder.v}
-\label{tab:water-level-encoder}
-\end{table}
-
-
-\begin{equation}
-\begin{split}
-bit0 = high' \times mid' \times low + high \times mid \times low 
-\label{math:water-level-encoder-0}
-\end{split}
-\end{equation}
-
-\begin{equation}
-\begin{split}
-bit1 &= high' \times mid \times low + high \times mid \times low \\
-bit1 &= (mid \times low)(high' + high) \\
-bit1 &= mid \times low
-\label{math:water-level-encoder-1}
-\end{split}
-\end{equation}
-
-
-
-\subsubsection{Controlador de irrigação}
-
-O módulo \textit{irrigation\_controller} é responsável por verificar os pré-requisitos necessários para o funcionamento do sistema de irrigação. Esses pré-requisitos devem ser atendidos para permitir a ativação dos dispositivos de irrigação, como o gotejador e o aspersor. As condições que o sistema de irrigação deve obedecer são as seguintes:
-a) Todos os sensores devem estar funcionando corretamente.
-b) O nível de água não deve estar crítico.
-c) O solo deve estar seco.
-
-A tabela verdade do mesmo pode ser encontrado na Tabela \ref{tab:irrigation-controller}, sua simplificação na Equação \eqref{math:irr-controler}, usando soma de produtos e seu esquema encontrado na Figura \ref{fig:irr-contrl}. 
-
-
-\begin{table}[H]
-\centering
-\begin{tabular}{|c|c|c|l|c|}
-\hline
-\textit{water\_sensor\_conflicting} & \multicolumn{1}{l|}{\textit{earth\_humidity}} & \textit{low\_water\_level} &  & \textit{irrigation\_off} \\ \hline
-0 & 0 & 0 &  & 0 \\ \hline
-0 & 0 & 1 &  & 1 \\ \hline
-0 & 1 & 0 &  & 0 \\ \hline
-0 & 1 & 1 &  & 0 \\ \hline
-1 & 0 & 0 &  & 0 \\ \hline
-1 & 0 & 1 &  & 0 \\ \hline
-1 & 1 & 0 &  & 0 \\ \hline
-1 & 1 & 1 &  & 0 \\ \hline
-\end{tabular}
-\caption{Tabela verdade do módulo \textit{irrigation\_controller.v}}
-\label{tab:irrigation-controller}
-\end{table}
-
-
-\begin{equation}
-\begin{split}
-irrigation\_off &= water\_sensor\_conflicting' \times earth\_humidity' \times low\_water\_level
-\label{math:irr-controler}
-\end{split}
-\end{equation}
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.75\linewidth]{control-irr.png}
-    \caption{Esquema do controlador de irrigação.}
-    \label{fig:irr-contrl}
-\end{figure}
-
-\subsubsection{Seletor de irrigação}
-
-O módulo \textit{Verilog} \textit{irrigation\_selector} é responsável por determinar qual dos modos de irrigação deverá ser ativo, se aspersor ou gotejador. 
-Para isso, deve ser escolhido com base em diferentes condições ambientais e de fornecimento de água. 
-Quando sua saída é verdadeira, o modo de aspersão será ativo, do contrário, o modo de gotejamento, essa saída é representada pelo sinal \textit{splinker\_mode\_on}. Existem dois cenários em que o aspersor deve ser ativado:
-a) Quando a umidade do ar estiver baixa.
-b) Quando a umidade do ar estiver alta, o clima estiver frio e o nível de água estiver acima do nível médio.
-
-Sua tabela verdade está representada pela Tabela \ref{tab:irrigation-selector} e sua simplificação por soma de produtos, pela Equação \eqref{math:irr-selector}, sendo que \textit{A} representa \textit{mid\_water\_level}, \textit{B}, \textit{low\_temperature}, \textit{C}, \textit{air\_humidity} e \textit{Z}, a saída \textit{splinker\_mode\_on}. Sua representação esquemática pode ser vista na Figura \ref{fig:select}.
-
-
-\begin{table}[h]
-\centering
-\begin{tabular}{|c|c|c|l|c|}
-\hline
-\textit{mid\_water\_level} & \multicolumn{1}{l|}{\textit{low\_temperature}} & \textit{air\_humidity} &  & \textit{splinker\_mode\_on} \\ \hline
-0 & 0 & 0 &  & 1 \\ \hline
-0 & 0 & 1 &  & 0 \\ \hline
-0 & 1 & 0 &  & 1 \\ \hline
-0 & 1 & 1 &  & 0 \\ \hline
-1 & 0 & 0 &  & 1 \\ \hline
-1 & 0 & 1 &  & 1 \\ \hline
-1 & 1 & 0 &  & 1 \\ \hline
-1 & 1 & 1 &  & 0 \\ \hline
-\end{tabular}
-\caption{Tabela verdade do módulo \textit{irrigation\_selector.v}}
-\label{tab:irrigation-selector}
-\end{table}
-
-
-
-\begin{equation}
-\begin{split}
-Z &= A'B'C + A'BC' + A'B'C' + AB'C + ABC' \\
-Z &= A'C'(B' + B') + A'B'(C' + C) + ABC' \\
-Z &= A'C' + AB' + ABC' \\
-Z &= A'C' + A(B' + BC') \\
-Z &= A'C" + AB' + AC'\\
-Z & = C'(A' + A) + AB'\\
-Z &= AB' + C'
-\label{math:irr-selector}
-\end{split}
-\end{equation}
-
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.75\linewidth]{select.png}
-    \caption{Esquema do seletor de irrigação}
-    \label{fig:select}
-\end{figure}
-
-
-\subsubsection{Multiplexador 2x1}
-O módulo \textit{Verilog} \textit{multiplexer\_2x1.v} é um componente que seleciona entre dois sinais de entrada (\textit{l0} e \textit{l1}) com base no valor de um sinal de seleção \textit{s}, assim como descrito por  \cite{floyd_2007_funes}. O sinal de saída \textit{out} é definido de acordo com o valor de \textit{s}: se \textit{s} for 0, o sinal de saída será igual a \textit{l0}; se \textit{s} for 1, o sinal de saída será igual a \textit{l1}. O processo de seleção é realizado internamente no módulo, garantindo que apenas um dos sinais de entrada seja propagado para o sinal de saída, dependendo do valor de \textit{s}. Seu esquema em diagrama pode ser encontrado na Figura \ref{fig:mux}.
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.75\linewidth]{mux.png}
-    \caption{Esquema do Multiplexador 2x1}
-    \label{fig:mux}
-\end{figure}
-
-
-\subsubsection{Desabilitador de \textit{display}}
-
-O módulo \textit{disable\_display} é responsável por desabilitar cada grupo do \textit{display} de sete segmentos. Para isso, fora utilizada uma propriedade de simplificação booleana que diz que $A'A = 1$, como pode ser visto na Tabela \ref{tab:disable-display}, portanto o resultado sempre será nível lógico alto, independentemente do valor de $A$. Seu esquema pode ser encontrado na Figura \ref{fig:dis-display}.
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.75\linewidth]{disabledisplay.png}
-    \caption{Esquema do desabilitador de display}
-    \label{fig:dis-display}
-\end{figure}
-
 
 \begin{table}[H]
 \centering
 \begin{tabular}{|c|c|c|}
 \hline
-\textit{A} &  & segment\_off \\ \hline
-0          &  & 1            \\ \hline
-1          &  & 1            \\ \hline
+water\_sensors\_conflicting & high\_water\_level & valvule[0] \\ \hline
+0                           & 0                  & 0          \\ \hline
+0                           & 1                  & 1          \\ \hline
+1                           & 0                  & 1          \\ \hline
+1                           & 1                  & 1          \\ \hline
 \end{tabular}
-\caption{Tabela verdade do módulo \textit{disable\_display.v}}
-\label{tab:disable-display}
+\caption{Tabela verdade dos sensores de água}
+\label{tab:sensors}
+\end{table}
+    
+\end{itemize}
+
+
+\subsubsection{\textit{Utils}, ou Utilitários}
+Inclui diversas funções auxiliares e de suporte que contribuem para a operação geral do sistema, ao englobar desde os redutores de \textit{clock}s, até \textit{flip-flops} e multiplexadores. Como todos são ferramentas predefinidas pela literatura, não houve a necessidade de representar as tabelas e expressões deles. Não houve alteração no \textit{multiplexer\_2x1}, o multiplexador 2x1 que foi utilizado no projeto anterior. No entanto, mais dois multiplexadores foram criados, além de 6 outros módulos. Dado que todos os módulos foram desenvolvidos com base em materiais didáticos, não se faz necessário a representação de tabelas verdade e expressões lógicas detalhadas para cada um deles. A fundamentação teórica e prática fornecida pelos materiais didáticos já garante a correta implementação dos circuitos e funcionalidades.
+
+\begin{itemize}
+    \item Multiplexadores novos
+
+    Ambos os multiplexadores funcionam de maneira semelhante, baseados na literatura de \cite{floyd_2007_lgebra}, selecionando uma das entradas de dados com base no valor binário do contador (\textit{ring\_counter}). O valor selecionado é então transmitido para a saída \textit{out}, permitindo a escolha dinâmica de qual dado será enviado adiante no circuito. Os novos multiplexadores são os \textit{multiplexer\_3x1} e \textit{multiplexer\_4x1}, que representam respectivamente multiplexadores 3x1 e 4x1, respectivamente, adaptados para a saída do \textit{contador ring}, onde apenas um dos bits está em nível lógico alto por vez.
+    
+    \item  \textit{always\_on}
+
+Foi projetado para garantir um sinal positivo constante independentemente das condições de entrada. A operação começa com a inversão da entrada a, realizada pela porta NOT, que produz a\_not. A propriedade lógica fundamental utilizada aqui é que qualquer valor lógico A somado com sua negação A' resulta em 0 (zero). Em termos da álgebra de \textit{Boole}, isso é expresso como \(A + A' = 0\).
+
+
+\begin{table}[h]
+    \centering
+    \begin{tabular}{|c|c|>{\centering\arraybackslash}p{2mm}|c|} \hline 
+         A&  A'&  & Saída\\ \hline 
+         0&  0&  & x\\ \hline 
+         0&  1&  & 1\\ \hline 
+         1&  0&  & 1\\ \hline 
+         1&  1&  & x\\ \hline
+    \end{tabular}
+    \caption{Tabela-verdade do módulo \textit{always_on}}
+    \label{tab:always_on}
 \end{table}
 
-\subsubsection{Seletor do modo de \textit{display}}
-O módulo \textit{display\_selector} é um seletor de \textit{display}, implementado como um multiplexador (MUX) em \textit{Verilog}. Ele é responsável por selecionar os dados que serão exibidos em um \textit{display} de sete segmentos com dois bits de entrada. O sinal \textit{selector} determina qual conjunto de dados será enviado para a exibição. Quando \textit{selector} está em estado alto, os bits de entrada \textit{encoded\_irrigation\_Bit1} e \textit{encoded\_irrigation\_Bit0} são selecionados e enviados para os segmentos do display correspondentes. Quando selector está em estado baixo, os bits de entrada \textit{encoded\_water\_Bit1} e \textit{encoded\_water\_Bit0} são selecionados e enviados para o \textit{display}. Esse processo permite alternar entre a exibição dos dados de irrigação e de água no \textit{display}, fornecendo ao usuário as informações necessárias sobre o sistema de irrigação em tempo real.
+    
+    \item \textit{clock\_divisor}
 
-\subsubsection{Decodificador do \textit{display}}
-O módulo \textit{display\_decoder} é responsável por converter os bits de entrada em sinais individuais para cada segmento de um \textit{display} de sete segmentos. Utilizando a lógica booleana, ele interpreta os sinais de entrada \textit{entry\_Bit0} e \textit{entry\_Bit1}, juntamente com o sinal de controle \textit{selector}, para determinar quais segmentos devem ser ativados para representar o valor de entrada. Cada segmento (A, B, C, D, E, F, G) é calculado individualmente com base nos valores dos bits de entrada e no seletor. As operações lógicas de \textit{NOT}, \textit{AND} e \textit{OR} são utilizadas para calcular a ativação de cada segmento de acordo com a combinação de entrada, garantindo que a representação no \textit{display} seja precisa e corresponda ao valor desejado. 
+ É responsável pela redução da frequência do \textit{clock} original. Este módulo utiliza uma implementação que emprega cinco \textit{flip-flops} do tipo T conectados assincronamente, permitindo assim uma divisão do sinal de \textit{clock}. Sua saída, \textit{new\_frequency}, é definida como a saída do último \textit{flip-flop}, que agora representa a frequência reduzida do sinal de entrada. Vale ressaltar que múltiplas instâncias desse módulo fora declarada para alcançar as frequências desejadas. A equação \ref{math:clock_div} e a Figura \ref{fig:clock-div} representa a sua nova frequência de saída em relação à de entrada.
 
-Sua tabela verdade pode ser vista na Tabela \ref{tab:display-decoder}, onde $A$ é o bit menos significativo e $B$ é o mais significativo, ao lado, tem-se as saídas para cada segmento do \textit{display}, enumerados de $a$ a $g$. Já a simplificação de suas expressões podem ser vistas da Equação \eqref{math:display-a} a Equação \eqref{math:display-g}, vale ressaltar que fora utilizado soma de produtos como método principal, exceto pela função $e$, que usou produto de somas. Já a visão esquemática geral pode ser vista na Figura \ref{fig:display}.
+$$Nova \space Frequência = \frac{clock}{32} \label{math:clock_div}$$
 
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\linewidth]{clock_divisor.png}
+    \caption{Esquema do divisor de clock usando Flipflops T}
+    \label{fig:clock-div}
+\end{figure}
+
+    \item Flip-flops
+
+Existem dois módulos de \textit{flipflops} no projeto, o primeiro é o \textit{flipflop\_d}, usando nos contadores, tanto os decrescentes quanto os contadores em anéis, e o segundo é o \textit{flipflop\_t}, usado para a divisão do \textit{clock}. Como o nome de ambos sugere, o primeiro é do tipo \textit{D} e o segundo do tipo \textit{T}. O primeiro contém entradas para \textit{set} e \textit{reset}, úteis para o uso de contadores, e o tipo \textit{T} contém um \textit{reset}, para caso seja necessário reiniciá-lo em alguma mudança de projeto futura.
+    
+    \item level\_to\_pulse
+
+Este módulo converte um nível de sinal (0 ou 1) em um pulso curto na borda de subida do \textit{clock}. O módulo é usado duas vezes no projeto, para que um pulso seja enviado toda vez que houver comutação no modo de aspersão. Portanto, quando atualizar para Aspersão ou Gotejamento, a recontagem do temporizador é iniciada automaticamente. O \textit{level to pulse} está esquematizado na Figura \ref{fig:level-to-pulse}, e funciona da seguinte maneira:
+\begin{enumerate}
+    \item Armazenamento do nível: Um \textit{flip-flop} do tipo \textit{D} \textit{(flipflop\_d}) é utilizado para armazenar o nível atual do sinal de entrada \textit{level}. O \textit{clock} controla quando o \textit{flip-flop} atualiza seu valor.
+    \item Negação do nível armazenado: A saída do f\textit{lip-flop} (\textit{q}) é negada através de uma porta \textit{NOT} (\textit{not\_q}). Isso significa que se \textit{q} for 1, \textit{not\_q} será 0, e vice-versa.
+    \item Geração do pulso: Uma porta \textit{AND} combina o nível negado (\textit{not\_q}) com o nível original (\textit{level}). O pulso é gerado apenas quando o nível original muda de 0 para 1 (borda de subida) e o \textit{flip-flop} ainda armazena o valor antigo (0). Isso garante que o pulso seja curto e preciso.
+\end{enumerate}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\linewidth]{level_to_pulse.png}
+    \caption{Esquema do \textit{level\_to\_pulse}}
+    \label{fig:level-to-pulse}
+\end{figure}
+    
+    \item pipe
+
+    Direciona os dados de entrada para saídas específicas do circuito. Este módulo facilita a gestão de fluxos de dados dentro do circuito digital, otimizando o processamento e a utilização dos recursos disponíveis. Como o projeto utiliza de de \textit{Verilog} estrutural ao invés de comportamental, com exceção dos \textit{flipflops}, então o pipe funciona como um \textit{assign}, onde a sinal de saída é idêntica ao sinal de entrada.
+
+    O módulo utiliza uma porta lógica \textit{AND} para realizar essa operação. Por exemplo, em “A * A = A”, quando o sinal de entrada “A” é multiplicado por si mesmo, o resultado é igual ao próprio sinal “A”. Portanto, o sinal de saída “out” será igual ao sinal de entrada “a”. É uma operação simples, mas útil em circuitos digitais. 
+\end{itemize}
 
 \begin{table}[H]
-\centering
-\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|}
-\hline
-A & B & C &  & a & b & \multicolumn{1}{l|}{c} & \multicolumn{1}{l|}{d} & \multicolumn{1}{l|}{e} & \multicolumn{1}{l|}{f} & \multicolumn{1}{l|}{g} \\ \hline
-0 & 0 & 0 &  & 1 & 1 & 1 & 1 & 1 & 1 & 1 \\ \hline
-0 & 0 & 1 &  & 1 & 0 & 0 & 1 & 1 & 1 & 1 \\ \hline
-0 & 1 & 0 &  & 0 & 0 & 1 & 0 & 0 & 1 & 0 \\ \hline
-0 & 1 & 1 &  & 0 & 0 & 0 & 0 & 1 & 1 & 0 \\ \hline
-1 & 0 & 0 &  & 1 & 1 & 1 & 1 & 1 & 1 & 1 \\ \hline
-1 & 0 & 1 &  & 0 & 0 & 0 & 1 & 0 & 0 & 0 \\ \hline
-1 & 1 & 0 &  & 0 & 1 & 0 & 0 & 0 & 0 & 1 \\ \hline
-1 & 1 & 1 &  & 1 & 1 & 1 & 1 & 1 & 1 & 1 \\ \hline
-\end{tabular}
-\caption{Tabela verdade do módulo \textit{display\_decoder.v}}
-\label{tab:display-decoder}
+    \centering
+    \begin{tabular}{|c|c|>{\centering\arraybackslash}p{2mm}|c|} \hline 
+         A&  A&  & Saída\\ \hline 
+         0&  0&  & 0\\ \hline 
+         0&  1&  & x\\ \hline 
+         1&  0&  & x\\ \hline 
+         1&  1&  & 1\\ \hline
+    \end{tabular}
+    \caption{Tabela-verdade do módulo \textit{pipe}}
+    \label{tab:pipe}
 \end{table}
 
-\begin{equation}
-\begin{split}
-a &= A'B'C' + A'B'C + AB'C' + A'B'C' + ABC \\
-a &= A'B'(C'+ C) + A(B'C' + BC) + ABC\\
-a &= A'B' + AB'C' + ABC\\
-a &= B'(A' + AC') + ABC\\
-a &= B'(A' + C') + ABC\\
-a &= B'A' + BC' + ABC \equiv ABC + B'C' + A'B'
-\label{math:display-a}
-\end{split}
-\end{equation}
+\subsubsection{\textit{Matrix}, ou Matriz de LEDs}
+
+Como no desenvolvimento do projeto anterior, a matriz de LEDs não foi utilizada, todos os módulos presentes no atual projeto que são relacionados à matriz, são novos. A ideia por de trás dos módulos da matriz é que os decodificadores enviem informações das linhas de cada coluna para o controlador, o qual chamamos de \textit{drive}, que mude a imagem mostrada conforme um contador \textit{ring de 3bits}. A escolha do contador de \textit{3 bits} para uma matriz de 5 colunas se deve ao fato da escolha das imagens mostradas serem simétricas no eixo vertical, o que reduz consideravelmente a quantidade de \textit{elementos lógicos}, já que são decodificadas apenas 3 colunas para a imagem do modo de irrigação e 2, para o nível da caixa d'água.
+
+\begin{itemize}
+    \item \textit{column\_selector}
+    
+É um contador de \textit{3 bits} responsável por selecionar qual coluna será exibida por vez. O contador ter \textit{3 bits} é devido ao fato de ter sido escolhido imagens espelhadas no eixo vertical para a matriz de LEDs, reduzindo assim a quantidade de recursos utilizados na sua implementação.  Assim, cada decodificador só precisa enviar informações das linhas (um barramento de 7 bits) de apenas 3 colunas. Seu circuito está representado na Figura \ref{fig:column_selector}.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\linewidth]{column_selector.png}
+    \caption{Circuito do \textit{column\_selector}}
+    \label{fig:column_selector}
+\end{figure}
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|c|c|>{\centering\arraybackslash}p{2mm}|c|c|c|} \hline 
+         Atual&  Próximo&  & count_2& count_1&count_0\\ \hline 
+         100&  010&  & 0& 1&0\\ \hline 
+         010&  001&  & 0& 0&1\\ \hline 
+         001&  100&  & 1& 0&0\\\hline
+    \end{tabular}
+    \caption{Tabela de estados do contador ring de 3 bits}
+    \label{tab:3bits-ring}
+\end{table}
+
+\item \textit{matrix\_driver}
+
+Seu funcionamento é de um multiplexador que utiliza barramentos, ao invés de sinais individuais. Assim, recebe-se 3 barramentos de 7 bits, um para cada coluna, contento informações para ativação ou não de cada linha dessa coluna, e então retorna um desses barramentos por vez, de acordo com um seletor. Sua multiplexação é feita diretamente pelo \textit{contador ring de 3 bits}, (\textit{column\_selector}) portanto apenas um dos \textit{bits} pode estar em nível lógico alto por vez. Seu circuito se encontra na Figura \ref{fig:matrix_driver}.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\linewidth]{matrix_driver.png}
+    \caption{Circuito do \textit{matrix\_driver}}
+    \label{fig:matrix_driver}
+\end{figure}
+
+
+    \item \textit{matrix\_ring\_decoder} 
+
+    Desempenha a função de transformar entradas de 3 bits em saídas de 5 bits. Este decodificador possui uma característica especial, já pode ser escrito sem a presença de portas lógicas, a pesar da terem sido usadas para a implementação em \textit{Verilog} estrutural, por meio de instâncias do módulo \textit{pipe}. Sua única função é a de redistribuir cada \textit{bit} da saída do \textit{column\_selector} (\textit{3 bits}) para a as colunas da matriz de LEDs (\textit{5 bits}), espelhando-os verticalmente. Seu esquema pode ser visto na Figura \ref{fig:ring_counter}.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\linewidth]{image.png}
+    \caption{Circuito do \textit{matrix\_ring\_decoder} }
+    \label{fig:ring_counter}
+\end{figure}
+
+    \item \textit{irrigation\_mode\_decoder}
+
+    Decodifica os sinais provenientes do sistema de irrigação, representando modos como aspersão, gotejamento, ou a ausência de irrigação na matriz de LEDs. Este módulo recebe entradas específicas dos sinais de \textit{splinker} e  \textit{irrigation}, ajustando a exibição conforme o modo de irrigação ativo.
+Caso exista irrigação e o modo de aspersão esteja ativo, será decodificado a imagem de um aspersor, já caso esteja no modo de gotejamento (quando \textit{splinker} estiver em nível lógico baixo, pois são complementares), a imagem de uma gota será decodificada. Do contrário, caso não haja irrigação, será decodificado uma exclamação, independente do sinal do modo de irrigação.
+A tabela verdade de cada linha e coluna pode ser vista em \ref{fig:irrigation_decoder}, enquanto a simplificação de suas expressões pode ser vista nos mapas de Karnaugh \ref{fig:irrigation-1111}, \ref{fig:irrigation-1110}, \ref{fig:irrigation-1011}, \ref{fig:irrigation-1010}. Pode ser visto em cada mapa-K a presença da numeração de sua coluna e linha no formato "coluna:linha".
 
 \begin{equation}
 \begin{split}
-b &= A'B'C' + AB'C' + ABC' + ABC  \\
-b &= A'B'C' + AB'C' + AB(C' + C)\\
-b &= A'B'C' + AB'C' + AB\\
-b &= B'C'(A' + A) + AB\\
-b &= B'C' + AB
-\label{math:display-b}
-\end{split}
-\end{equation}
-
-\begin{equation}
-\begin{split}
-c &= A'B'C' + A'B'C' + AB'C' + ABC \\
-c &= A'C'(B' + B') + AB'C' + ABC \\
-c &= A'C' + AB'C' + ABC \\
-c &= C'(A' + AB') + ABC \\
-c &= C'(A' + B') + ABC \\
-c &= A'C' + B'C' + ABC
-\label{math:display-c}
-\end{split}
-\end{equation}
-
-\begin{equation}
-\begin{split}
-d &= A'B'C' + A'B'C + AB'C + ABC\\
-d &= A'B'(C' + C) + AB'(C' + C) + ABC\\
-d &= A'B' + AB' + ABC\\
-d &= B'(A + A') + ABC\\
-d &= B' + ABC\\
-d &= B' + AC
-\label{math:display-d}
-\end{split}
-\end{equation}
-
-\begin{equation}
-\begin{split}
-e &= A'B'C' + A'B'C + A'BC + AB'C' + ABC\\
-e &= A'B'(C' + C) + BC(A' + A) + AB'C'\\
-e &= A'B' + BC + AB'C'\\
-e &= B'(A' + AC') + BC\\
-e &= B'(A' + C') + BC\\
-e &= B'A' + B'C' + BC \equiv B'C' + A'C + BC
-\label{math:display-e}
-\end{split}
-\end{equation}
-
-\begin{equation}
-\begin{split}
-f &= (A' + B + C')(A' + B' + C)\\
-f &= (A'A + A'B' + A'C) + (A'B + B'B + BC) + (A'C' + B'C' + CC')\\
-f &= (0 + A'B' + A'C) + (A'B + 0 + BC) + (A'C' + B'C' + 0)\\
-f &= A'B' + A'C + A'B + BC + A'C' + B'C'\\
-f &= A'(B' + B) + A'(C + C') + BC + B'C'\\
-f &= A' + A' + BC + B'C'\\
-f &= A' + BC + B'C'
-\label{math:display-f}
-\end{split}
-\end{equation}
-
-\begin{equation}
-\begin{split}
-g &= A'B'C' + A'B'C + AB'C' + ABC' + ABC\\
-g &= A'B'(C' + C) + AB'C' + AB(C' + C)\\
-g &= A'B' + AB'C' + AB\\
-g &= B'(A' + AC') + AB\\
-g &= B'(A' + C') + AB\\
-g &= A'B' + B'C' + AB
-\label{math:display-g}
+% valvule[0] &= water\_sensors\_conflicting + high\_water\_level
+\label{math:valvule}
 \end{split}
 \end{equation}
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.75\linewidth]{display.png}
-    \caption{Esquema geral do \textit{Display} de 7 Segmentos}
-    \label{fig:display}
+    \includegraphics[width=0.9\linewidth]{irrigation_decoder.png}
+    \caption{Tabelas verdade do \textit{irrigation\_decoder}}
+    \label{fig:irrigation_decoder}
 \end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\linewidth]{irrigation-1111.png}
+    \caption{Expressão: $Y = 1$}
+    \label{fig:irrigation-1111}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.4\linewidth]{kmap1110e.png}
+    \caption{Expressão: $Aspersão' + Irrigação'$}
+    \label{fig:irrigation-1110}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.45\linewidth]{irrigation-kmap1011ge.png}
+    \caption{Expressão: $Irrigação' + Aspersão$}
+    \label{fig:irrigation-1011}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.35\linewidth]{irrigation-kmap-1010ge.png}
+    \caption{Expressão: $Irrigação'$}
+    \label{fig:irrigation-1010}
+\end{figure}
+    
+    \item \textit{water\_level\_decoder}
+    
+    Recebe o nível da água codificado e verifica a presença de erros. Este módulo é projetado para retornar imagens apropriadas à matriz de LEDs, com uma característica especial que envolve o uso de um barramento de 2 bits para as colunas do meio, que são idênticas. Em caso de detecção de erro, nenhuma imagem é exibida, alertando o sistema para a necessidade de correção.
+A tabela verdade contento as linhas e colunas do decodificador da matriz está disponível na Figura \ref{fig:water_level_decoder}, enquanto isso, a simplificação das expressões por meio do Mapa-K pode ser encontrado nas Figuras \ref{fig:water-1111-1111}, \ref{fig:water-1110-1111}, \ref{fig:water-1100-1111} e \ref{fig:water-1000-1111}. A posição da expressão a ser usada na matriz é representada logo acima da tabela usando o formato "coluna:linha".
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\linewidth]{water_level_decoder.png}
+    \caption{Tabelas verdade do \textit{water\_level\_decoder}}
+    \label{fig:water_level_decoder}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\linewidth]{water-1111-1111.png}
+    \caption{Expressão: $Y = 1$}
+    \label{fig:water-1111-1111}
+\end{figure}
+\begin{figure}[H]
+        \centering
+        \includegraphics[width=0.35\linewidth]{water-1110-1111.png}
+        \caption{Expressão: $Y = n_1' + n_0' + Erro$}
+        \label{fig:water-1110-1111}
+    \end{figure}    
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.3\linewidth]{water-1100-1111.png}
+    \caption{Expressão: $Y = n_1' + Erro$}
+    \label{fig:water-1100-1111}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.3\linewidth]{water-1000-1111.png}
+    \caption{Expressão: Y = $n_1'n_0' + Erro$}
+    \label{fig:water-1000-1111}
+\end{figure}
+
+    \item \textit{select\_matrix\_display\_mode}
+
+    É um multiplexador que seleciona entre as imagens representativas do modo de irrigação e as do nível da caixa d'água. Este módulo alterna entre os modos com base em um seletor controlado por um clock, permitindo uma transição fluida e sincronizada entre as diferentes informações exibidas na matriz de LEDs. Seu circuito está representado na Figura \ref{fig:select_matrix_display_mode}.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\linewidth]{select_matrix_mode.png}
+    \caption{Circuito do \textit{select\_matrix\_display\_mode}}
+    \label{fig:select_matrix_display_mode}
+\end{figure}
+    
+\end{itemize}
+
+\subsubsection{\textit{Timer}, ou Temporizador}
+
+Implementa as funcionalidades de temporização, necessárias para visualização no display.
+
+\begin{itemize}
+    \item Contadores
+
+A lógica de representação desses contadores utiliza 4 bits de saída para representar um BCD (Binary-Coded Decimal). Este código binário é então direcionado ao decodificador, que é responsável por interpretar e exibir os valores no display. Para a exibição no display, apenas os valores binários de 0 a 9 são utilizados, enquanto o valor 10 é descartado. Os valores binários excedentes são empregados para representar letras, proporcionando uma flexibilidade adicional na exibição de informações alfanuméricas no display.
+
+Os flipflops dos contadores são síncronos, porém os contadores são assíncronos entre si. Dependendo dos contadores anteriores para realizar a contagem decrescente. Ao alcançar zero, o \textit{clock} que entra no contador mais à esquerda (o \textit{down\_from\_5}) é inibido, até que haja um pulso de atualização pelo módulo \textit{timer\_reseter}. O uso de três contadores que usam a quantidade mínimo necessária de \textit{flipflops} para a representação de cada dígito é importante para a redução do uso de recursos da placa. As tabelas verdade dos três contadores se encontram na Figura \ref{fig:contadores}.
+
+    \begin{enumerate}
+        \item \textit{down\_from\_9}
+
+        O contador "down\_from\_9" é projetado para realizar contagens decrescentes de 9 a 0. Este módulo é composto por quatro flip-flops do tipo D, que juntos representam quatro bits. A saída combinada dos quatro flip-flops é utilizada para alimentar o clock do contador subsequente, o "down\_from\_3", enquanto isso, seu \textit{clock} vem da saída combinada do \textit{down\_from\_5}. Esta interconexão garante uma sincronização adequada entre os módulos de contagem.
+        
+        \item \textit{down\_from\_5}
+
+        O contador "down\_from\_5" desempenha a função de contar de 5 a 0 de forma decrescente. Este módulo é constituído por três flip-flops do tipo D, representando três bits. A saída combinada dos três flip-flops é utilizada para alimentar o clock do contador "down\_from\_9", criando uma cadeia lógica de contagem decrescente.
+        
+        \item \textit{down\_from\_3}
+
+        O contador "down\_from\_3" conta de 3 a 0 de forma decrescente e também é composto por dois flip-flops do tipo D, associados sincronicamente. Esse contador recebe como \textit{clock} um pulso do contador anterior (o \textit{down\_from\_9}), para quando este alcançar zero, fazendo o \textit{down\_from\_3} mudar para o próximo estado.
+
+\end{enumerate}
+
+\begin{figure} [H]
+    \centering
+    \includegraphics[width=0.75\linewidth]{contadores.png}
+    \caption{Tabelas verdade dos contadores}
+    \label{fig:contadores}
+\end{figure}
+    
+        \item \textit{display\_decoder}
+
+Este módulo converte um código binário de 4 bits em sinais de controle para um \textit{display} de sete segmentos. O decodificador também suporta a exibição das letras 'A', 'F', 'E', 'r', e 'o', além dos dígitos de 0 a 9. Vale ressaltar que a escolha do 'A' e 'F' como '1110' e '1111', respectivamente, não fora por acaso, mas uma forma de simplificar o uso, pois apenas o bit menos significativo muda entre ambos.
+
+A entrada de 4 bits (\textit{data}) é usada para determinar quais segmentos do \textit{display} devem ser acesos para formar o caractere correspondente. Cada segmento do \textit{display} (\textit{a} até \textit{g}) é controlado por uma série de condições lógicas que dependem dos bits da entrada. Quando um bit específico da entrada está presente, os segmentos necessários são ativados para formar o caractere correspondente no \textit{display}. Sua tabela verdade se encontra na Tabela \ref{tab:display-decoder} e o mapa K de cada segmento pode ser visto nas figuras \ref{fig:seg-a} a \ref{fig:seg-g}.
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|c|c|>{\centering\arraybackslash}p{2mm}|c|c|c|c|c|c|c|c|c|c|c|} \hline  
+         d_3&  d_2&  d_1& d_0& & a&b & c& d& e& f& g& &Rep.\\ \hline  
+         0&  0&  0& 0 & & 0&0& 0& 0& 0& 0& 1& &0\\ \hline  
+         0&  0&  0& 1& & 1&0& 0& 1& 1& 1& 1& &1\\ \hline  
+         0&  0&  1& 0& & 0&0& 1& 0& 0& 1& 0& &2\\ \hline  
+         0&  0&  1& 1 & & 0&0& 0& 0& 1& 1& 0& &3\\ \hline  
+ 0& 1& 0& 0 
+& & 1& 0& 0& 1& 1& 0& 0& &4\\ \hline  
+ 0& 1& 0& 1
+& & 0& 1& 0& 0& 1& 0& 0& &5\\ \hline  
+ 0& 1& 1& 0
+& & 0& 1& 0& 0& 0& 0& 0& &6\\ \hline  
+ 0& 1& 1& 1 & & 0& 0& 0& 1& 1& 1& 1& &7\\ \hline  
+ 1& 0& 0& 0 
+& & 0& 0& 0& 0& 0& 0& 0& &8\\ \hline  
+ 1& 0& 0& 1
+& & 0& 0& 0& 0& 1& 0& 0& &9\\ \hline  
+ 1& 0& 1& 0
+& & x& x& x& x& x& x& x& &\\ \hline  
+ 1& 0& 1& 1 & & 0& 1& 1& 0& 0& 0& 0& &E\\ \hline  
+ 1
+& 1
+& 0& 0 
+& & 1& 1& 1& 1& 0& 1& 0& &r\\ \hline  
+ 1
+& 1
+& 0& 1
+& & 1& 1& 0& 0& 0& 1& 0& &o\\ \hline  
+ 1
+& 1
+& 1& 0
+& & 0& 0& 0& 1& 0& 0& 0& &A\\ \hline  
+ 1& 1& 1& 1 & & 0& 1& 1& 1& 0& 0& 0& &F\\ \hline 
+    \end{tabular}
+    \caption{Tabela da decodificação do \textit{display} de 7 segmentos}
+    \label{tab:display-decoder}
+\end{table}
+
+\begin{figure} [H]
+    \centering
+    \includegraphics[width=0.3\linewidth]{a.png}
+    \caption{Segmento \textit{a}}
+    \label{fig:seg-a}
+\end{figure}
+$$
+a = d_3'd_2'd_1'd_0 + d_2d_1'd_0' + d_3d_2d_1' 
+$$
+
+\begin{figure} [H]
+    \centering
+    \includegraphics[width=0.3\linewidth]{b.png}
+    \caption{Segmento \textit{b}}
+    \label{fig:seg-b}
+\end{figure}
+$$
+b = d_2d_1'd_0 + d_3'd_2d_1d_0' + d_3d_2d_1' + d_3d_1d_0
+$$
+\begin{figure} [H]
+    \centering
+    \includegraphics[width=0.3\linewidth]{c.png}
+    \caption{Segmento \textit{c}}
+    \label{fig:seg-c}
+\end{figure}
+$$
+c = d_2'd_1d_0' + d_3d_2d_1'd_0' + d_3d_1d_0
+$$
+
+\begin{figure} [H]
+    \centering
+    \includegraphics[width=0.3\linewidth]{d.png}
+    \caption{Segmento \textit{d}}
+    \label{fig:seg-d}
+\end{figure}
+$$
+d = d_3'd_2'd_1'd_0 + d_2d_1'd_0' + d_2d_1d_0 + d_3d_2d_0' 
+$$
+\begin{figure} [H]
+    \centering
+    \includegraphics[width=0.3\linewidth]{e.png}
+    \caption{Segmento \textit{e}}
+    \label{fig:seg-e}
+\end{figure}
+$$
+e = d_3'd_0 + d_3'd_2d_1' + d_2'd_1'd_0 
+$$
+\begin{figure} [H]
+    \centering
+    \includegraphics[width=0.3\linewidth]{f.png}
+    \caption{Segmento \textit{f}}
+    \label{fig:seg-f}
+\end{figure}
+$$
+f = d_3'd_2'd_0 + d_3'd_1d_0 + d_3d_2d_1' + d_3'd_2'd_1
+$$
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.3\linewidth]{g.png}
+    \caption{Segmento \textit{g}}
+    \label{fig:seg-g}
+\end{figure}
+
+$$
+g = d_3'd_2'd_1' + d_3'd_2d_1d_0
+$$
+
+    \item \textit{display\_selector}
+
+O seletor de \textit{display} funciona de forma muito similar ao \textit{column\_selector} descrito anteriormente para a matriz de LEDs, sendo esse um contador do tipo \textit{ring de 4bits}. Sua função é a de selecionar qual dos dígitos será mostrado por vez no \textit{display} de sete segmentos, o que permite que sejam mostradas todas as informações. Para isso, recebe-se um \textit{clock} que seja alto suficiente para que pareça uma imagem estática aos olhos humanos, quando na verdade apenas um dos dígitos é exibido por vez. Seu esquema se encontra na Figura \ref{fig:display-selector} e sua tabela de estados na Tabela \ref{tab:4bits-ring}.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\linewidth]{display_selector.png}
+    \caption{Esquema do \textit{display\_selector}}
+    \label{fig:display-selector}
+\end{figure}
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|c|c|>{\centering\arraybackslash}p{2mm}|c|c|c|c|} \hline 
+         Atual&  Próximo&  & count_3& count_2& count_1&count_0\\ \hline 
+         1000&  0100&  & 0 & 1& 0&0\\ \hline 
+         0100&  0010&  & 0& 0& 1&0\\ \hline 
+         0010&  0001&  & 0& 0& 0&1\\ \hline 
+         0001&  1000&  & 1 & 0& 0&0\\ \hline
+    \end{tabular}
+    \caption{Tabela de estados do contador ring de 4 bits}
+    \label{tab:4bits-ring}
+\end{table}
+
+    \item \textit{display\_driver}
+
+    seleciona um conjunto de dados de entrada entre quatro possíveis ($data_3$, $data_2$, $data_1$, $data_0$) com base no valor do \textit{ring\_counter} e envia o conjunto selecionado para a saída out. Utiliza quatro multiplexadores 4x1 para fazer essa seleção, um para cada bit dos dados de entrada, permitindo que diferentes dados sejam exibidos em diferentes momentos conforme o valor do contador de anel. O driver recebe informações de instâncias do \textit{error\_or\_info}, responsável por intercalar entre uma mensagem de erro ou o representação padrão do cronômetro juntamente da abertura da caixa d'água.
+
+Assim, $data_3$ pode receber a informação correspondente aos caracteres 'A' ou 'E', $data_2$ o dígito da dezena de minutos do contador ou o caractere 'r', $data_1$ o dígito da unidade de minutos ou 'r', enquanto $data_0$, a dezena de segundos ou o caractere 'o'. Seu esquema se encontra na Figura \ref{fig:display-driver}.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\linewidth]{display_driver.png}
+    \caption{Esquema do \textit{display\_driver}}
+    \label{fig:display-driver}
+\end{figure}
+
+    \item \textit{error\_or\_info}
+
+    O módulo \textit{error\_or\_info} seleciona entre dois conjuntos de dados de entrada (\textit{info} e \textit{error}) com base no sinal \textit{has\_error}. Se \textit{has\_error} for verdadeiro, a saída out exibirá os dados de error; caso contrário, exibirá os dados de \textit{info}. Sua visualização se enccontra na Figura \ref{fig:error-or-info}. Ele usa multiplexadores 2x1 para fazer essa seleção para cada bit dos dados de entrada, permitindo a exibição de mensagens de erro ou informação conforme a necessidade. Quatro instâncias desse módulo são usadas no projeto, uma para cada dígito do mostrador de 7 segmentos.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\linewidth]{error_or_info.png}
+    \caption{Esquema do \textit{error\_or\_info}}
+    \label{fig:error-or-info}
+\end{figure}
+
+    \item \textit{set\_display\_init}
+
+    O módulo \textit{set\_display\_init} configura os valores iniciais dos \textit{displays} de minutos e segundos dependendo do modo de operação (\textit{splinker\_mode\_on}) e do sinal de reinício (\textit{recount}).
+
+    \begin{enumerate}
+        \item Quando \textit{splinker\_mode\_on} é verdadeiro, ele configura os \textit{displays} de minutos e segundos para os valores correspondentes ao modo "Splinker" ("0011 0000 0000", "3 0 0" em decimal).
+        \item Quando \textit{splinker\_mode\_on} é falso (modo "Dripper"), ele configura os \textit{displays} para os valores do modo "Dripper" ("0001 0101 0000", "1 5 0" em decimal).
+        \item \textit{recount} é utilizado para indicar quando os \textit{flipflops} devem ser configurados para o valor inicial novamente.
+    \end{enumerate}
+
+    O circuito utiliza portas lógicas para determinar os valores específicos que devem ser enviados aos \textit{displays} dos minutos (\textit{minutes\_d\_setter}, \textit{minutes\_u\_setter}, \textit{minutes\_d\_resetter}, \textit{minutes\_u\_resetter}) e segundos (\textit{seconds\_d\_resetter}) dependendo do modo de operação e do sinal de reinício. As Tabelas \ref{tab:Dezena de minutos} a \ref{tab:sets e resets} mostram as tabelas verdade dos Setters e Resetters de cada dígito do temporizador.
+
+
+\begin{table}[H]
+\centering
+\begin{tabular}{| c  |c  |c  |c |c |c  |c  |c |c |c |}
+\hline
+\multicolumn{10}{|c|}{Dezena de minutos} \\
+\hline
+Recontar& Aspersão& \multicolumn{4}{|c|}{Setter} & \multicolumn{4}{|c|}{Resetter} \\
+\hline
+ &  & set_3& set_2& set_1& set_0& reset_3& reset_2& reset_1& reset_0\\ \hline 
+0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\ \hline 
+0 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\ \hline 
+1 & 0 & 0 & 0 & 1 & 1 & 1 & 1 & 0 & 0 \\ \hline
+1 & 1 & 0 & 0 & 0 & 1 & 1 & 1 & 1 & 0 \\ \hline
+
+\end{tabular}
+\caption{Tabela verdade para a dezena de minutos}
+\label{tab:Dezena de minutos}
+\end{table}
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|c|>{\centering\arraybackslash}p{0.07\linewidth}|>{\centering\arraybackslash}p{0.07\linewidth}|>{\centering\arraybackslash}p{0.07\linewidth}|>{\centering\arraybackslash}p{0.07\linewidth}|>{\centering\arraybackslash}p{0.07\linewidth}|>{\centering\arraybackslash}p{0.07\linewidth}|>{\centering\arraybackslash}p{0.07\linewidth}|>{\centering\arraybackslash}p{0.07\linewidth}|} \hline 
+          Saída&set_3&  set_2&  set_1&  set_0&  reset_3&  reset_2&  reset_1& reset_0\\ \hline 
+          Expressão&0&  0&  RA'&  RA' + RA
+ = 
+R&  RA' + RA
+=
+R&  RA' + RA
+=
+R&  RA& 0\\ \hline
+    \end{tabular}
+    \caption{\textit{Set}s e \textit{reset}s das unidades de minutos}
+    \label{tab:my_label}
+\end{table}
+ 
+\begin{table}[H]
+\centering
+
+
+\begin{tabular}{| c  |c  |c  |c |c |c  |c  |c |c |c |}
+\hline
+\multicolumn{10}{|c|}{Unidade de minutos} \\
+\hline
+Recontar& Aspersão& \multicolumn{4}{|c|}{Setter} & \multicolumn{4}{|c|}{Resetter} \\
+\hline
+ &  & set_3& set_2& set_1& set_0& reset_3& reset_2& reset_1& reset_0\\ \hline 
+0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\ \hline 
+0 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\ \hline 
+1 & 0 & 0 & 0 & 0 & 0 & 1 & 1 & 1 & 1 \\ \hline
+1 & 1 & 0 & 1 & 0 & 1 & 1 & 0 & 1 & 0 \\ \hline
+
+\end{tabular}
+\caption{Tabela verdade para a unidade de minutos}
+\label{tab:my_table}
+\end{table}
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|c|>{\centering\arraybackslash}p{0.07\linewidth}|>{\centering\arraybackslash}p{0.07\linewidth}|>{\centering\arraybackslash}p{0.07\linewidth}|>{\centering\arraybackslash}p{0.07\linewidth}|>{\centering\arraybackslash}p{0.07\linewidth}|>{\centering\arraybackslash}p{0.07\linewidth}|>{\centering\arraybackslash}p{0.07\linewidth}|>{\centering\arraybackslash}p{0.07\linewidth}|} \hline 
+          Saída&set_3&  set_2&  set_1&  set_0&  reset_3&  reset_2&  reset_1& reset_0\\ \hline 
+          Expressão&0&  RA&  0&  RA&  RA' + RA
+=
+R&  RA'&  RA' + RA
+=
+R& RA'\\ \hline
+    \end{tabular}
+    \caption{\textit{Set}s e \textit{reset}s das unidades de minutos}
+    \label{tab:my_label}
+\end{table}
+\begin{table}[H]
+\centering
+
+\begin{tabular}{| c  |c  |c  |c |c |c  |c  |c |c |c |}
+\hline
+\multicolumn{10}{|c|}{Dezena de segundos} \\
+\hline
+Recontar& Aspersão& \multicolumn{4}{|c|}{Setter} & \multicolumn{4}{|c|}{Resetter} \\
+\hline
+ &  & set_3& set_2& set_1& set_0& reset_3& reset_2& reset_1& reset_0\\ \hline 
+0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\ \hline 
+0 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\ \hline 
+1 & 0 & 0 & 0 & 0 & 0 & 1 & 1 & 1 & 1 \\ \hline
+1 & 1 & 0 & 0 & 0 & 0 & 1 & 1 & 1 & 1 \\ \hline
+
+\end{tabular}
+\caption{Tabela verdade da dezena dos segundos}
+\label{tab:my_table}
+\end{table}
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|c|>{\centering\arraybackslash}p{0.07\linewidth}|>{\centering\arraybackslash}p{0.07\linewidth}|>{\centering\arraybackslash}p{0.07\linewidth}|>{\centering\arraybackslash}p{0.07\linewidth}|>{\centering\arraybackslash}p{0.07\linewidth}|>{\centering\arraybackslash}p{0.07\linewidth}|>{\centering\arraybackslash}p{0.07\linewidth}|>{\centering\arraybackslash}p{0.07\linewidth}|} \hline 
+          Saída&set_3&  set_2&  set_1&  set_0&  reset_3&  reset_2&  reset_1& reset_0\\ \hline 
+          Expressão&0&  0&  0&  0&  RA' + RA = R&  RA' + RA = R&  RA' + RA = R& RA' + RA = R\\ \hline
+    \end{tabular}
+    \caption{\textit{Set}s e \textit{reset}s dos segundos}
+    \label{tab:sets e resets}
+\end{table}
+
+    \item \textit{timer\_reseter}
+    
+    O módulo \textit{timer\_reseter} gera um sinal de \textit{reset} para o temporizador com base em várias condições de entrada relacionadas ao sistema de irrigação. Ele é responsável por indicar que o temporizador deve refazer uma contagem, voltando ao estado inicial. Para isso, seu sinal deve ser enviado pata o \textit{set\_display\_init}, permitindo a atualização dos \textit{flipflops} dos contadores.
+
+    O sinal \textit{reset} é ativado se ocorrer uma das seguintes situações:
+
+        \begin{enumerate}
+            \item O sistema de irrigação está desligado (\textit{irrigation\_off}).
+            \item Um botão de \textit{reset} foi pressionado e liberado (\textit{button\_released}).
+            \item Há valores conflitantes (\textit{conflicting\_values}).
+            \item Um pulso de comutação do sistema de irrigação é detectado (\textit{irrigation\_switch\_pulse}).
+
+        \end{enumerate}
+
+Esse módulo é importante para que se possa retomar a contagem do temporizador, atualizando-o sempre que uma dessas condições acima sejam atendidas. Vale ressaltar que em alguns casos, ele é capaz de travar o temporizador no estado inicial, que pode ser de 30 minutos ou 15 minutos, como é o caso de valores conflitantes e irrigação inexistente. Seu esquema pode ser visualizado na Figura \ref{fig:timer_reseter}.
+
+\end{itemize}
+
+\begin{figure} [H]
+    \centering
+    \includegraphics[width=0.5\linewidth]{reseter.png}
+    \caption{Esquema do \textit{timer\_reseter}}
+    \label{fig:timer_reseter}
+\end{figure}
+
+% --
+
 
 \subsection{Pinagem}
 
-Para representar as diferentes situações do circuito, como a abertura das válvulas e os níveis de água na caixa, foram cuidadosamente selecionados os pinos mais apropriados na placa. 
-A seguir, descrevemos os pinos selecionados para representar cada uma dessas situações.
+Para o presente circuito, preservaram-se diversas entradas do projeto precedente, incluindo as chaves pinadas associadas aos níveis da caixa d'água, bem como os sensores de umidade e temperatura. Contudo, houve a introdução de novas entradas, destacando-se os sinais de \textit{reset}, designados como Pulso 3 e Pulso 2, além do sinal de \textit{clock}.
 
-Válvula de Entrada: A abertura da válvula de entrada (\textit{Ve}) é representada visualmente pelo \textit{LED0}, localizado no \textit{pino 54} da placa.
+Toda a pinagem, com as devidas atualizações podem ser observadas na Tabela \ref{tab:componentes-pinos}.
 
-Para representar tanto os níveis da caixa d’água quanto os dados dos sensores de umidade do ar, do solo e de temperatura, optou-se por utilizar as \textit{Chaves HH} da placa. 
-Desta forma, para garantir o funcionamento completo do circuito, foram atribuídas sete chaves no total.
+\begin{table}[H]
+\centering
+\begin{tabular}{|c|c|c|}
+\hline
+\textbf{Componente} & \textbf{Nome} & \textbf{Pino} \\ \hline
+\multicolumn{3}{|c|}{\textbf{Entradas}} \\ \hline
+Switch & Temperatura & CH5 (30) \\ \hline
+Switch & Umidade do Ar & CH4 (34) \\ \hline
+Switch & Umidade da Terra & CH3 (36) \\ \hline
+Switch & Nível Alto da Água & CH2 (38) \\ \hline
+Switch & Nível Médio da Água & CH1 (40) \\ \hline
+Switch & Nível Baixo da Água & CH0 (42) \\ \hline
+Botão & Pulso 3 & B0 (52) \\ \hline
+Botão & Pulso 2 & B1 (50) \\ \hline
+Clock & Clock & 12 \\ \hline
+\multicolumn{3}{|c|}{\textbf{Saídas}} \\ \hline
+LED & Indicador Válvula Abastecimento & LED0 (54) \\ \hline
+LED & Contador 2 & LED2 (57) \\ \hline
+LED & Contador 1 & LED3 (61) \\ \hline
+LED & Contador 0 & LED4 (67) \\ \hline
+LED & Válvula Gotejadora & LED8 (75) \\ \hline
+LED & Bomba Aspersora & LED9 (76) \\ \hline
+LED & Alarme (Vermelho) & Red Led (86) \\ \hline
+\multicolumn{3}{|c|}{\textbf{Display 7 Segmentos}} \\ \hline
+Cátodo & Segmento A & 7 SEG-A (90) \\ \hline
+Cátodo & Segmento B & 7 SEG-B (70) \\ \hline
+Cátodo & Segmento C & 7 SEG-C (41) \\ \hline
+Cátodo & Segmento D & 7 SEG-D (98) \\ \hline
+Cátodo & Segmento E & 7 SEG-E (100) \\ \hline
+Cátodo & Segmento F & 7 SEG-F (92) \\ \hline
+Cátodo & Segmento G & 7 SEG-G (39) \\ \hline
+Ânodo Comum & Display 0 (Dígito mais à direita) & 7 SEG-D1 (37) \\ \hline
+Ânodo Comum & Display 1 & 7 SEG-D2 (68) \\ \hline
+Ânodo Comum & Display 2 & 7 SEG-D3 (66) \\ \hline
+Ânodo Comum & Display 3 (Dígito mais à esquerda) & 7 SEG-D4 (88) \\ \hline
+Ponto Decimal & & 7 SEG-P (96) \\ \hline
+\multicolumn{3}{|c|}{\textbf{Matriz}} \\ \hline
+Coluna & Coluna 0 & 97 \\ \hline
+Coluna & Coluna 1 & 99 \\ \hline
+Coluna & Coluna 2 & 95 \\ \hline
+Coluna & Coluna 3 & 82 \\ \hline
+Coluna & Coluna 4 & 78 \\ \hline
+Linha & Linha 0 & 85 \\ \hline
+Linha & Linha 1 & 83 \\ \hline
+Linha & Linha 2 & 84 \\ \hline
+Linha & Linha 3 & 87 \\ \hline
+Linha & Linha 4 & 81 \\ \hline
+Linha & Linha 5 & 91 \\ \hline
+Linha & Linha 6 & 89 \\ \hline
+\end{tabular}
+\caption{Tabela de componentes e pinos}
+\label{tab:componentes-pinos}
+\end{table}
 
-Os níveis baixo, médio e alto da caixa d’água são representados respectivamente pelas chaves: \textit{CH0}, \textit{CH1} e \textit{CH2}, localizadas nos \textit{pinos 42}, \textit{38} e \textit{30}.
-Já os sensores de ambiente, como é o caso dos sensores de umidade do solo, umidade do ar e temperatura foram representados respectivamente pelas chaves \textit{CH3}, \textit{CH4} e \textit{CH5}, localizadas nos \textit{pinos 36}, \textit{34} e \textit{30}.
 
-Além disso, o último pino foi dedicado para alternar o modo de exibição do display de 7 segmentos (\textit{pino 35}), permitindo mostrar o nível da caixa d’água ou o tipo de irrigação (podendo ser aspersão ou gotejamento), conforme selecionado pelo usuário.
-
-As regas de aspersão e Gotejamento foram visualmente representadas em dois locais distintos da placa. 
-Inicialmente, optou-se por indicar a ativação dessas regas nos \textit{LEDs LED9} (\textit{pino 76}) para aspersão e \textit{LED8} (\textit{pino 75}) para gotejamento, proporcionando uma visualização direta e acessível. 
-Esta escolha permitiu a rápida identificação da ativação das regas, antes mesmo da codificação do \textit{display} de 7 segmentos, facilitando o desenvolvimento do projeto como um todo.
-
-Já o alarme foi integrado ao circuito utilizando o \textit{LED RGB}, configurado para emitir luz vermelha, localizado no \textit{pino 86}.
-
-Além disso, o \textit{display} de segmentos é empregado para representar os tipos de rega, conforme mencionado anteriormente, e o nível da caixa d'água. 
-Os segmentos do dígito 3 (último dígito) são utilizados para essa finalidade, com os seguintes pinos associados: \textit{39, 41, 70, 90, 91, 98} e \textit{100}. Não obstante, fora necessário desabilitar partes do \textit{display}, como é o caso do ponto e de dos \textit{displays} à esqueda, para isso, ativando os pinos \textit{66, 68, 88} e \textit{96}.
+% --
 
 \subsection{Ferramentas Auxiliares}
 
-No desenvolvimento do projeto, foram implementadas duas ferramentas auxiliares utilizando a linguagem de programação \textit{Python}, versão 3.10. A primeira ferramenta, denominada \textit{clean.py}, tem como função principal a remoção de todos os arquivos temporários gerados durante o uso do software \textit{Quartus II}. Esta operação é essencial para manter a integridade do ambiente de desenvolvimento e evitar a propagação de inconsistências durante o processo de compilação.
-
-A segunda ferramenta, \textit{update\_config.py}, é projetada para automatizar a atualização do arquivo de configuração do \textit{Quartus}. Ela opera lendo um arquivo no formato \textit{TOML} e extrai as variáveis necessárias para configurar adequadamente o ambiente de compilação. As variáveis extraídas incluem a pinagem, o diretório de origem dos módulos e as especificações do dispositivo alvo.
-
-O \textit{script} gerado por esta ferramenta é capaz de configurar a compilação paralela do compilador, definir o dispositivo de destino, adicionar os módulos necessários conforme especificado no diretório de origem, além de configurar a pinagem. Com isso, elimina-se a necessidade de interação manual com o \textit{Pin Planner} do \textit{Quartus}, otimizando o fluxo de trabalho e reduzindo a margem de erro humano.
+Para simplificar o processo de desenvolvimento do projeto, foram empregados dois arquivos Python: o \textit{clean.py} e o \textit{update\_config.py}. Ambos desempenharam papéis importantes no projeto anterior e foram novamente utilizados nesta iteração.
 
 
 \section{Resultados}
+% temp
+No desenvolvimento do projeto, visando a utilização otimizada dos recursos da CPLD, foram adotadas diversas estratégias, como o espelhamento de colunas na matriz de LEDs, o que resultou em uma significativa redução no consumo de Elementos Lógicos (LEs).
 
-O circuito sintetizado é relativamente simples, consistindo principalmente de operações lógicas combinacionais e utilizando uma quantidade moderada de recursos do CPLD. Não há armazenamento de estados ou operações sequenciais no circuito, o que pode ser observado pelo fato de não haver nenhum registro (\textit{Register only}) no projeto. 
+No total, foram utilizados 104 dos 240 Elementos Lógicos disponíveis e 41 dos 80 pinos da CPLD. A utilização detalhada dos elementos lógicos é apresentada nas Figuras \ref{fig:LEs} e \ref{fig:LUTs}.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.65\linewidth]{LEs.png}
+    \caption{Utilização dos Elementos Lógicos}
+    \label{fig:LEs}
+\end{figure}
+
+\begin{figure} [H]
+    \centering
+    \includegraphics[width=0.6\linewidth]{LUTs.png}
+    \caption{Uso dos recursos da CPLD}
+    \label{fig:LUTs}
+\end{figure}
+
+\subsection{Imagens da Placa}
+
+Conforme mencionado na Seção 1.5 (Pinagem), foram adotadas diversas formas de representar as entradas para ilustrar de maneira clara cada situação possível do ambiente.
+
+Primeiramente, a matriz de LEDs é utilizada para representar tanto o nível da caixa d'água (Figuras \ref{fig:critico}, \ref{fig:baixo}, \ref{fig:meio} e \ref{fig:alto}), quanto o tipo de irrigação (Figuras \ref{fig:asp} e \ref{fig:got}). Essas duas informações são alternadas periodicamente na mesma matriz, permitindo que sejam visualizadas integralmente.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.3\linewidth]{critico.png}
+    \caption{Nível crítico na matriz de LEDs}
+    \label{fig:critico}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.3\linewidth]{baixo.png}
+    \caption{Nível baixo na matriz de LEDs}
+    \label{fig:baixo}
+\end{figure}
+
+\begin{figure} [H]
+    \centering
+    \includegraphics[width=0.3\linewidth]{meio.png}
+    \caption{Nível médio na matriz de LEDs}
+    \label{fig:meio}
+\end{figure}
+
+\begin{figure} [H]
+    \centering
+    \includegraphics[width=0.3\linewidth]{alto.png}
+    \caption{Nível alto na matriz de LEDs}
+    \label{fig:alto}
+\end{figure}
+
+\begin{figure} [H]
+    \centering
+    \includegraphics[width=0.3\linewidth]{asp.png}
+    \caption{Aspersão representada na matriz de LEDs}
+    \label{fig:asp}
+\end{figure}
+
+\begin{figure} [H]
+    \centering
+    \includegraphics[width=0.3\linewidth]{got.png}
+    \caption{Gotejamento representada na matriz de LEDs}
+    \label{fig:got}
+\end{figure}
 
 
-Assim, ao analisar os resultados da síntese do circuito no \textit{Quartus} é revelado que o projeto utiliza um total de 14 elementos lógicos (LEs) em um \textit{Complex Programmable Logic Device} (CPLD). Todos esses LEs são empregados em operações combinacionais, sem a presença de \textit{flip-flops} ou outros elementos de armazenamento. A distribuição dos LEs por número de entradas nas Tabelas de Verdade mostra uma predominância de operações com múltiplas entradas. Em relação aos pinos de entrada/saída (\textit{I/O pins}), o circuito faz uso de 22 deles. Além disso, o circuito possui um total de 60 \textit{fan-outs}, com uma média de 1.67 \textit{fan-outs} por nó. 
+Além disso, o estado da válvula de enchimento da caixa d'água é exibido no primeiro dígito (da esquerda para a direita) de um display de 7 segmentos. Neste contexto, a letra "A" indica que a válvula está "Aberta" e a letra "F" que está "Fechada". As figuras pertinentes mostram essas indicações. Adicionalmente, o display de 7 segmentos também exibe o temporizador, que é configurado para iniciar com 30 minutos no modo de Gotejamento e 15 minutos no modo de Aspersão, conforme ilustrado nas Figuras \ref{fig:valv-aberta} e \ref{fig:valv-fechada}.
 
-Em relação aos resultados esperados, o projeto alcançou sucesso em todas as métricas estabelecidas, satisfazendo integralmente os requisitos técnicos para o circuito. Este êxito não apenas demonstra a eficácia do sistema automatizado de irrigação desenvolvido, mas também reforça a importância da adequada preparação e capacitação técnica na execução de projetos complexos em Sistemas Digitais.
-% ---
+\begin{figure} [H]
+    \centering
+    \includegraphics[width=0.4\linewidth]{valv-aberta.png}
+    \caption{Válvula aberta e temporizador}
+    \label{fig:valv-aberta}
+\end{figure}
+
+\begin{figure} [H]
+    \centering
+    \includegraphics[width=0.4\linewidth]{valv-fechada.png}
+    \caption{Válvula fechada e temporizador}
+    \label{fig:valv-fechada}
+\end{figure}
+
+Em caso de conflito nos sensores, o display de 7 segmentos é capaz de mostrar uma mensagem de erro, alertando sobre a anomalia detectada. Esta funcionalidade é útil para a identificação e resolução rápida de problemas operacionais. A Figura \ref{fig:erro} demonstra a visualização dessa mensagem de erro.
+
+\begin{figure} [H]
+    \centering
+    \includegraphics[width=0.4\linewidth]{erro.png}
+    \caption{Mensagem de erro}
+    \label{fig:erro}
+\end{figure}
+
+% --
+
+
 % Finaliza a parte no bookmark do PDF, para que se inicie o bookmark na raiz
-% ---
 \bookmarksetup{startatroot}% 
-% ---
 
-% ---
 % Conclusão
-% ---
 \section*{Considerações finais}
 \addcontentsline{toc}{section}{Considerações finais}
 
-No desenvolvimento do projeto, os desafios mais significativos estiveram relacionados ao processo de aprendizagem das tecnologias e metodologias aplicadas. Embora estes desafios sejam intrínsecos ao processo de pesquisa e desenvolvimento, eles não são o foco principal deste relatório. 
+Durante o desenvolvimento do projeto, foram enfrentadas diversas dificuldades técnicas significativas. Algumas das principais envolveram a implementação dos \textit{flip-flops}, componentes críticos para o controle de estados e temporização dentro do circuito. Outra complexidade técnica foi a implementação da funcionalidade de parada do temporizador ao atingir o valor zero, garantindo que ele cessasse corretamente suas operações.
 
-A concepção do circuito abordou diversos aspectos cruciais para seu funcionamento eficiente. Cada módulo, desde o alarme até o controlador de irrigação, foi cuidadosamente projetado para atender aos requisitos específicos do sistema. A análise dos resultados da síntese do circuito no \textit{Quartus} demonstrou que o projeto alcançou sucesso em todas as métricas estabelecidas, utilizando um número moderado de recursos do CPLD. Essa eficiência confirma a importância da preparação técnica adequada na execução de projetos complexos em Sistemas Digitais. A integração harmoniosa dos diferentes módulos resultou em um sistema robusto e confiável, capaz de atender às necessidades de irrigação residencial de forma sustentável e eficaz.
+O temporizador em si apresentou desafios adicionais, exigindo uma abordagem dedicada para assegurar seu funcionamento conforme especificado. A resolução desses problemas demandou um estudo aprofundado da literatura especializada, além de consultas contínuas com monitores e professores, cujas orientações foram fundamentais para superar as dificuldades encontradas.
+
+Cada módulo do projeto, desde aqueles responsáveis pela matriz de LEDs até os relacionados ao temporizador, foi desenvolvido com o objetivo de atender aos requisitos especificados para o circuito. A matriz de LEDs, por exemplo, foi projetada para alternar periodicamente entre a indicação do nível da caixa d'água e o tipo de irrigação, garantindo uma representação clara das informações.
+
+Os resultados obtidos com esses módulos indicam um desempenho satisfatório em todas as métricas avaliadas, comprovando o êxito do design e da implementação. A integração harmoniosa dos diferentes componentes demonstra a robustez do circuito desenvolvido e sua capacidade de operar dentro dos parâmetros projetados, atendendo às necessidades específicas do sistema de irrigação automatizado.
+
+
+
+% --
 
 % \lipsum[1]
 
@@ -788,7 +1088,7 @@ A concepção do circuito abordou diversos aspectos cruciais para seu funcioname
 % \twocolumn[    		% INICIO DE ARTIGO EM DUAS COLUNAS
 
 % titulo em inglês
-\titulo{Problema 1: Rega Automatizada!}
+\titulo{Problem 2: ... Automated Irrigation (Improvements)!}
 \emptythanks
 \maketitle
 
@@ -796,12 +1096,12 @@ A concepção do circuito abordou diversos aspectos cruciais para seu funcioname
 \renewcommand{\resumoname}{Abstract}
 \begin{resumoumacoluna}
  \begin{otherlanguage*}{english}
-   This report aims to present the methodology and development of an automated irrigation system. The system was designed to optimize water usage in crops, aiming to enhance economic efficiency compared to traditional irrigation methods. Using the Verilog structural programming language and \textit{Quartus software}, the system was implemented on a \textit{CPLD MAX II} board. The achieved results confirmed the project's success, demonstrating the technical feasibility and operational effectiveness of the proposed system. Additionally, the project contributed to the consolidation of theoretical knowledge related to Digital Systems, aligning with existing literature and suggesting paths for future research and practical applications in the field of agricultural automation.
+   This study presents the evolution of an automated irrigation system, initially proposed, with the implementation of an enhanced circuit. The new design incorporates advanced functionalities, including a timer and an improved interface for displaying system information. The development tools Verilog and Quartus were employed for the implementation on the CPLD MAX II board. The results demonstrate the effectiveness of using resources such as synchronous and asynchronous counters, flip-flops, latches, and clock manipulation, highlighting the system's potential to optimize irrigation processes.
 
    \vspace{\onelineskip}
  
    \noindent
-   \textbf{Key-words}: automated irrigation. digital circuits. Verilog. Quartus. CPLD MAX II. water efficiency. digital systems. agricultural technology.
+   \textbf{Key-words}: automated irrigation. digital circuits. Verilog. Quartus. CPLD MAX II. digital systems. synchronous counters. asynchronous counters. flip-flops. latches. clock manipulation. agricultural automation. process optimization.
 
 
 
